@@ -25,6 +25,7 @@ app.use(passport.session());
 if (process.env.NODE_ENV === "production") {
 	app.use(express.static("client/build"));
 }
+
 //mongoose connection
 mongoose
 	.connect(process.env.MONGODB_URI, {
