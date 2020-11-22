@@ -31,7 +31,7 @@ function Header() {
 					<div className="collapse navbar-collapse" id="navbarSupportedContent">
 						<ul className="navbar-nav mr-auto">
 							<li className="nav-item active">
-								<Link className="nav-link" to="/">
+								<Link className="nav-link  " to="/">
 									Home <span className="sr-only">(current)</span>
 								</Link>
 							</li>
@@ -46,9 +46,16 @@ function Header() {
 									Archives
 								</Link>
 							</li>
+							<li className="nav-item auth-nav">
+								<Link className="nav-link" to="/admin">
+									Admin
+								</Link>
+							</li>
 						</ul>
+
 						{authenticated ? (
 							<ul className="navbar-nav ml-auto">
+								<br />
 								<li className="nav-item auth-nav">
 									<Link className="nav-link" to="/dashboard">
 										Dashboard
@@ -65,7 +72,7 @@ function Header() {
 									</Link>
 								</li>
 
-								<li className="nav-item">
+								<li className="nav-item logout-button">
 									<button
 										type="button"
 										className="btn btn-sm btn-warning"

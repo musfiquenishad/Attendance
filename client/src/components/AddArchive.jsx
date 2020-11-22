@@ -19,27 +19,36 @@ function Archives() {
 	function handleSubmit(event) {
 		event.preventDefault();
 		setLoading(true);
-		axios
-			.post("/post", { date, subject, data })
-			.then((res) => {
-				notify({
-					alertVersion: "success",
-					alertMessage: "Attendance data saved into archive",
-				});
-				setData("");
-				setData("");
-				setSubject("");
-				setLoading(false);
-			})
-			.catch((error) => {
-				console.log(error);
-				console.log(error);
-				setLoading(false);
-				notify({
-					alertVersion: "danger",
-					alertMessage: "Internal Server Error Please Try Again Later",
-				});
+		if (data === "") {
+			notify({
+				alertVersion: "warning",
+				alertMessage:
+					"Inpute cannot be empty!! Please fill out every feild properly",
 			});
+			setLoading(false);
+		} else {
+			axios
+				.post("/post", { date, subject, data })
+				.then((res) => {
+					notify({
+						alertVersion: "success",
+						alertMessage: "Attendance data saved into archive",
+					});
+					setData("");
+					setData("");
+					setSubject("");
+					setLoading(false);
+				})
+				.catch((error) => {
+					console.log(error);
+					console.log(error);
+					setLoading(false);
+					notify({
+						alertVersion: "danger",
+						alertMessage: "Internal Server Error Please Try Again Later",
+					});
+				});
+		}
 	}
 
 	function notify(props) {
@@ -188,6 +197,7 @@ function Archives() {
 					</div>
 					<div className="form-group">
 						<CKEditor
+							required
 							editor={ClassicEditor}
 							data={data}
 							config={{ toolbar: ["insertTable"] }}

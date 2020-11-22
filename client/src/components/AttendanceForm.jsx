@@ -54,8 +54,7 @@ function AttendanceForm() {
 
 				notify({
 					alertVersion: "danger",
-					alertMessage:
-						"Device is already registered !! Internal server error ",
+					alertMessage: "Device is already registered !!",
 				});
 			});
 	}
