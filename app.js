@@ -224,19 +224,25 @@ app.delete("/deleteall", (req, res) => {
 });
 
 app.post("/register", (req, res) => {
-	User.register(
-		{ username: req.body.username },
-		req.body.password,
-		(error, user) => {
-			if (error) {
-				res.send(error);
-			} else {
-				passport.authenticate("local")(req, res, () => {
-					res.send("An user registered successfully");
-				});
+	if (req.isAuthenticated()) {
+		User.register(
+			{ username: req.body.username },
+			req.body.password,
+			(error, user) => {
+				if (error) {
+					res.send(error);
+				} else {
+					passport.authenticate("local")(req, res, () => {
+						res.send("An user registered successfully");
+					});
+				}
 			}
-		}
-	);
+		);
+	} else {
+		res
+			.status(401)
+			.json({ msg: "You are not authorized to register a new admin" });
+	}
 });
 
 app.post("/login", (req, res) => {
