@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { HashRouter, Route, Switch } from "react-router-dom";
 import Header from "./components/Header";
 import AttendanceForm from "./components/AttendanceForm";
 import AttendanceTable from "./components/AttendanceTable";
@@ -48,7 +48,7 @@ function App() {
 	}, [authenticated]);
 	return (
 		<div className="App">
-			<BrowserRouter>
+			<HashRouter>
 				<Authentication.Provider value={{ authenticated, setAuthenticated }}>
 					<OnOffContext.Provider value={{ showForm, setShowForm }}>
 						<Switch>
@@ -77,7 +77,7 @@ function App() {
 						</Switch>
 					</OnOffContext.Provider>
 				</Authentication.Provider>
-			</BrowserRouter>
+			</HashRouter>
 		</div>
 	);
 }
