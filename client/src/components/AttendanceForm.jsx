@@ -86,7 +86,7 @@ function AttendanceForm() {
 							<br />
 							Check previous <Link to="/archivelist">Aattendance</Link>.
 						</p>
-
+						<br />
 						{showAlert && (
 							<div
 								className={`alert alert-${alertVersion} alert-dismissible fade show `}
