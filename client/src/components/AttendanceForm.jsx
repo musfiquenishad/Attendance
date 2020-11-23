@@ -76,11 +76,15 @@ function AttendanceForm() {
 			<div className="mt-5 mb-5">
 				{showForm ? (
 					<div className="container text-center mb-5">
-						<h1 className="mb-4">Attendance Form</h1>
+						<h1 className="mb-4">
+							<span style={{ color: "#0063AD" }}>Attendance</span>{" "}
+							<span style={{ color: "#21AC4A" }}>Form</span>
+						</h1>
 
 						<p className="mb-4">
-							Check Today's Present <Link to="/students">here</Link>. Check
-							previous Aattendance <Link to="/archivelist">here</Link>.
+							Check Today's <Link to="/students">Present</Link>.
+							<br />
+							Check previous <Link to="/archivelist">Aattendance</Link>.
 						</p>
 
 						{showAlert && (

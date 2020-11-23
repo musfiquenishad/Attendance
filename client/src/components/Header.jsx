@@ -13,7 +13,8 @@ function Header() {
 			>
 				<div className="container">
 					<Link className="navbar-brand" to="/">
-						Attendance
+						<span style={{ color: "#0063AD" }}>Atten</span>
+						<span style={{ color: "#21AC4A" }}>dance</span>
 					</Link>
 
 					<button
