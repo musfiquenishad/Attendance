@@ -257,7 +257,7 @@ app.post("/login", (req, res) => {
 				res.send("Logged in success");
 			});
 		} else {
-			res.send(error);
+			res.send("Wrong Email and Password");
 		}
 	});
 });
@@ -306,7 +306,7 @@ app.post("/post", (req, res) => {
 
 app.get("/archives", (req, res) => {
 	Archives.find({})
-		.sort("date")
+		.sort({ date: -1 })
 		.then((result) => {
 			res.send(result);
 		})

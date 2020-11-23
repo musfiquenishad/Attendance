@@ -1,5 +1,6 @@
 import React, { Fragment, useContext } from "react";
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import Header from "./Header";
 import { OnOffContext } from "./OnOffContext";
@@ -78,8 +79,8 @@ function AttendanceForm() {
 						<h1 className="mb-4">Attendance Form</h1>
 
 						<p className="mb-4">
-							Submitting the form twice from the same device and Same address
-							will result in cancellation of the first submission.
+							Check Today's Present <Link to="/students">here</Link>. Check
+							previous Aattendance <Link to="/archivelist">here</Link>.
 						</p>
 
 						{showAlert && (
