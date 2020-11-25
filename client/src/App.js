@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { HashRouter as Router, Route, Switch } from "react-router-dom";
 import Header from "./components/Header";
 import AttendanceForm from "./components/AttendanceForm";
 import AttendanceTable from "./components/AttendanceTable";
