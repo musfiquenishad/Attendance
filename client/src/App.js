@@ -54,10 +54,7 @@ function App() {
 						<Switch>
 							<Route path="/" exact component={AttendanceForm} />
 
-							<Route exact path="/students">
-								<Header />
-								<AttendanceTable />
-							</Route>
+							<Route exact path="/students" component={AttendanceTable} />
 
 							<Route exact path="/admin" component={Admin} />
 							<Route exact path="/loading" component={LoadingScreen} />
