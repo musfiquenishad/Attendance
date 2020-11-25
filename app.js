@@ -386,6 +386,16 @@ app.get("/archives/:subject", (req, res) => {
 	});
 });
 
+app.get("/archives/Statistics%20and%20Probability", (req, res) => {
+	Archives.find({}, (error, archives) => {
+		if (error) {
+			res.status(5000).send(error.message);
+		} else {
+			res.send(archives);
+		}
+	});
+});
+
 // ................................... All Archive Routes Ends .....................................//
 
 //...................................Attendance Form visibility related.........................//

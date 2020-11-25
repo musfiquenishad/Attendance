@@ -14,7 +14,7 @@ function SubjectWiseArchive() {
 		let isMounted = true;
 		setLoading(true);
 		axios
-			.get("/archives/statistics-and-probability")
+			.get(`/archives/${subject}`)
 			.then((res) => {
 				if (isMounted) {
 					setData(res.data);

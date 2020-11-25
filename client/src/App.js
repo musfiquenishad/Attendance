@@ -67,38 +67,7 @@ function App() {
 								<Header />
 								<AttendanceArchive />
 							</Route>
-							<Route exact path="/archives/english">
-								<Header />
-								<SubjectWiseArchive />
-							</Route>
-							<Route exact path="/archives/linear-algebra">
-								<Header />
-								<SubjectWiseArchive />
-							</Route>
-							<Route exact path="/archives/discrete-mathematics">
-								<Header />
-								<SubjectWiseArchive />
-							</Route>
-							<Route exact path="/archives/digital-systems-design">
-								<Header />
-								<SubjectWiseArchive />
-							</Route>
-							<Route exact path="/archives/statistics-and-probability">
-								<Header />
-								<SubjectWiseArchive />
-							</Route>
-							<Route exact path="/archives/structure-programming-language">
-								<Header />
-								<SubjectWiseArchive />
-							</Route>
-							<Route
-								exact
-								path="/archives/story-of-the-emergance-of-indipendent-bangladesh"
-							>
-								<Header />
-								<SubjectWiseArchive />
-							</Route>
-							<Route exact path="/archives/others">
+							<Route exact path="/archives/:subject">
 								<Header />
 								<SubjectWiseArchive />
 							</Route>
