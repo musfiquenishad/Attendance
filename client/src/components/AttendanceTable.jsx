@@ -34,29 +34,35 @@ function AttendanceTable() {
 			{loading ? (
 				<LoadingScreen marginTop="200px" />
 			) : (
-				<div className="table-responsive">
-					<table className="table table-striped table-sm">
-						<thead>
-							<tr>
-								<th>ID</th>
-								<th>Name</th>
-								<th>Section</th>
-								<th className="text-center">Subject</th>
-							</tr>
-						</thead>
-						<tbody>
-							{data.map((student) => {
-								return (
-									<tr key={student._id}>
-										<td>{student.classId}</td>
-										<td>{student.name}</td>
-										<td>{student.section}</td>
-										<td className="text-center">{student.subject}</td>
+				<div className="text-center">
+					{!data.length ? (
+						<h2>No one is present yet</h2>
+					) : (
+						<div className="table-responsive">
+							<table className="table table-striped table-sm">
+								<thead>
+									<tr>
+										<th>ID</th>
+										<th>Name</th>
+										<th>Section</th>
+										<th className="text-center">Subject</th>
 									</tr>
-								);
-							})}
-						</tbody>
-					</table>
+								</thead>
+								<tbody>
+									{data.map((student) => {
+										return (
+											<tr key={student._id}>
+												<td>{student.classId}</td>
+												<td>{student.name}</td>
+												<td>{student.section}</td>
+												<td className="text-center">{student.subject}</td>
+											</tr>
+										);
+									})}
+								</tbody>
+							</table>
+						</div>
+					)}
 				</div>
 			)}
 		</div>

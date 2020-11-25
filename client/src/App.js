@@ -15,6 +15,7 @@ import Notfound from "./components/Notfound";
 import AttendanceArchive from "./components/AttendanceArchive";
 import LoadingScreen from "./components/LoadingScreen";
 import { OnOffContext } from "./components/OnOffContext";
+import SubjectWiseArchive from "./components/SubjectWiseArchive";
 
 function App() {
 	const [authenticated, setAuthenticated] = useState(false);
@@ -65,6 +66,10 @@ function App() {
 							<Route exact path="/archivelist">
 								<Header />
 								<AttendanceArchive />
+							</Route>
+							<Route exact path="/archives/:subject">
+								<Header />
+								<SubjectWiseArchive />
 							</Route>
 
 							<PrivateRoute path="/dashboard" exact component={Dashboard} />

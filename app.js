@@ -375,6 +375,17 @@ app.delete("/archive/:id", (req, res) => {
 	}
 });
 
+// Subject wise show archive
+app.get("/archives/:subject", (req, res) => {
+	Archives.find({ subject: req.params.subject }, (error, archives) => {
+		if (error) {
+			res.status(5000).send(error.message);
+		} else {
+			res.send(archives);
+		}
+	});
+});
+
 // ................................... All Archive Routes Ends .....................................//
 
 //...................................Attendance Form visibility related.........................//

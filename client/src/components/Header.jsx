@@ -12,10 +12,10 @@ function Header() {
 				id="navbar"
 			>
 				<div className="container">
-					<Link className="navbar-brand" to="/">
+					<a className="navbar-brand" href="/">
 						<span style={{ color: "#0063AD" }}>Atten</span>
 						<span style={{ color: "#21AC4A" }}>dance</span>
-					</Link>
+					</a>
 
 					<button
 						className="navbar-toggler"
@@ -32,25 +32,75 @@ function Header() {
 					<div className="collapse navbar-collapse" id="navbarSupportedContent">
 						<ul className="navbar-nav mr-auto">
 							<li className="nav-item active">
-								<Link className="nav-link  " to="/">
+								<a className="nav-link" href="/">
 									Home <span className="sr-only">(current)</span>
-								</Link>
+								</a>
 							</li>
 
 							<li className="nav-item">
-								<Link className="nav-link" to="/students">
+								<a className="nav-link" href="/students">
 									Present
-								</Link>
+								</a>
 							</li>
-							<li className="nav-item">
-								<Link className="nav-link" to="/archivelist">
+
+							<li className="nav-item dropdown">
+								<a
+									className="nav-link dropdown-toggle"
+									href="/archivelist"
+									id="navbarDropdown"
+									role="button"
+									data-toggle="dropdown"
+									aria-haspopup="true"
+									aria-expanded="false"
+								>
 									Archives
-								</Link>
+								</a>
+								<div className="dropdown-menu" aria-labelledby="navbarDropdown">
+									<a className="dropdown-item" href="/archives/English">
+										English
+									</a>
+									<a className="dropdown-item" href="/archives/Linear Algebra">
+										Linear Algebra
+									</a>
+									<a
+										className="dropdown-item"
+										href="/archives/Discrete Mathematics"
+									>
+										Discrete Mathematics
+									</a>
+									<a
+										className="dropdown-item"
+										href="/archives/Digital Systems Design"
+									>
+										Digital Systems Design
+									</a>
+									<a
+										className="dropdown-item"
+										href="/archives/Statistics and Probability"
+									>
+										Statistics and Probability
+									</a>
+									<a
+										className="dropdown-item"
+										href="/archives/Structure Programming Language"
+									>
+										Structure Programming Language
+									</a>
+									<a
+										className="dropdown-item"
+										href="/archives/Story of the Emergance of Indipendent Bangladesh"
+									>
+										History of Indipendent Bangladesh
+									</a>
+									<a className="dropdown-item" href="/archives/Others">
+										Others
+									</a>
+								</div>
 							</li>
 							<li className="nav-item auth-nav">
-								<Link className="nav-link" to="/admin">
+								<a className="nav-link" href="/admin">
 									Admin
-								</Link>
+								</a>
 							</li>
 						</ul>
 
@@ -58,19 +108,19 @@ function Header() {
 							<ul className="navbar-nav ml-auto">
 								<br />
 								<li className="nav-item auth-nav">
-									<Link className="nav-link" to="/dashboard">
+									<a className="nav-link" href="/dashboard">
 										Dashboard
-									</Link>
+									</a>
 								</li>
 								<li className="nav-item  auth-nav">
-									<Link className="nav-link" to="/archives">
+									<a className="nav-link" href="/archives">
 										Archives
-									</Link>
+									</a>
 								</li>
 								<li className="nav-item auth-nav">
-									<Link className="nav-link" to="/addarchive">
+									<a className="nav-link" href="/addarchive">
 										Add Archive
-									</Link>
+									</a>
 								</li>
 
 								<li className="nav-item logout-button">
