@@ -437,6 +437,7 @@ app.delete("/archive/:id", (req, res) => {
 // Production
 if (process.env.NODE_ENV === "production") {
 	app.use(express.static("client/build"));
+	console.log(NODE_ENV);
 	console.log("client/build");
 	app.get("*", (req, res) => {
 		res.sendFile(path.join(__dirname, "client", "build", "index.html"));
