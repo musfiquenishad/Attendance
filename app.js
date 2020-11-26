@@ -437,10 +437,12 @@ app.delete("/archive/:id", (req, res) => {
 // Production
 if (process.env.NODE_ENV === "production") {
 	app.use(express.static("client/build"));
-
+	console.log("client/build");
 	app.get("*", (req, res) => {
 		res.sendFile(path.join(__dirname, "client", "build", "index.html"));
+		console.log(req);
 	});
+	console.log(__dirname, "client", "build", "index.html");
 }
 
 const port = process.env.PORT || 5000;

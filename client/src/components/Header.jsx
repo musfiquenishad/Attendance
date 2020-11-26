@@ -38,15 +38,15 @@ function Header() {
 							</li>
 
 							<li className="nav-item">
-								<a className="nav-link" href="/students">
-									Present
+								<a className="nav-link" href="/presents">
+									Presents
 								</a>
 							</li>
 
 							<li className="nav-item dropdown">
 								<a
 									className="nav-link dropdown-toggle"
-									href="/archivelist"
+									href="/archives"
 									id="navbarDropdown"
 									role="button"
 									data-toggle="dropdown"
@@ -113,12 +113,12 @@ function Header() {
 									</a>
 								</li>
 								<li className="nav-item  auth-nav">
-									<a className="nav-link" href="/archives">
+									<a className="nav-link" href="/manage-archives">
 										Archives
 									</a>
 								</li>
 								<li className="nav-item auth-nav">
-									<a className="nav-link" href="/addarchive">
+									<a className="nav-link" href="/add-archive">
 										Add Archive
 									</a>
 								</li>

@@ -8,12 +8,11 @@ import Dashboard from "./components/Dashboard";
 import PrivateRoute from "./components/PrivateRoute";
 import axios from "axios";
 import Admin from "./components/Admin";
-import Archives from "./components/Archives";
+import ManageArchive from "./components/ManageArchive";
 import AddArchive from "./components/AddArchive";
 import EditAttendance from "./components/EditAttendance";
 import Notfound from "./components/Notfound";
-import AttendanceArchive from "./components/AttendanceArchive";
-import LoadingScreen from "./components/LoadingScreen";
+import PublicArchive from "./components/PublicArchive";
 import { OnOffContext } from "./components/OnOffContext";
 import SubjectWiseArchive from "./components/SubjectWiseArchive";
 
@@ -55,17 +54,16 @@ function App() {
 						<Switch>
 							<Route path="/" exact component={AttendanceForm} />
 
-							<Route exact path="/students">
+							<Route exact path="/presents">
 								<Header />
 								<AttendanceTable />
 							</Route>
 
 							<Route exact path="/admin" component={Admin} />
-							<Route exact path="/loading" component={LoadingScreen} />
-							<PrivateRoute exact path="/edit/:id" component={EditAttendance} />
-							<Route exact path="/archivelist">
+
+							<Route exact path="/archives">
 								<Header />
-								<AttendanceArchive />
+								<PublicArchive />
 							</Route>
 							<Route exact path="/archives/:subject">
 								<Header />
@@ -73,8 +71,13 @@ function App() {
 							</Route>
 
 							<PrivateRoute path="/dashboard" exact component={Dashboard} />
-							<PrivateRoute path="/archives" exact component={Archives} />
-							<PrivateRoute path="/addarchive" exact component={AddArchive} />
+							<PrivateRoute
+								path="/manage-archives"
+								exact
+								component={ManageArchive}
+							/>
+							<PrivateRoute exact path="/edit/:id" component={EditAttendance} />
+							<PrivateRoute path="/add-archive" exact component={AddArchive} />
 
 							<Route path="*">
 								<Notfound />

@@ -107,7 +107,7 @@ function EditAttendance() {
 							</Link>
 						</li>
 						<li className="nav-item">
-							<Link className="nav-link" to="/archives">
+							<Link className="nav-link" to="/manage-archives">
 								<svg
 									width="1em"
 									height="1em"
@@ -125,7 +125,7 @@ function EditAttendance() {
 							</Link>
 						</li>
 						<li className="nav-item">
-							<Link className="nav-link" to="/addarchive">
+							<Link className="nav-link" to="/add-archive">
 								<svg
 									width="1em"
 									height="1em"

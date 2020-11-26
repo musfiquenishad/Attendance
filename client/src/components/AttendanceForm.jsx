@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import Header from "./Header";
 import { OnOffContext } from "./OnOffContext";
-import AttendanceArchive from "./AttendanceArchive";
+import AttendanceArchive from "./PublicArchive";
 function AttendanceForm() {
 	const [ip, setIp] = useState("");
 	const [name, setName] = useState("");
