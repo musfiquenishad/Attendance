@@ -12,10 +12,10 @@ function Header() {
 				id="navbar"
 			>
 				<div className="container">
-					<a className="navbar-brand" href="/">
+					<Link className="navbar-brand" to="/">
 						<span style={{ color: "#0063AD" }}>Atten</span>
 						<span style={{ color: "#21AC4A" }}>dance</span>
-					</a>
+					</Link>
 
 					<button
 						className="navbar-toggler"
@@ -32,21 +32,21 @@ function Header() {
 					<div className="collapse navbar-collapse" id="navbarSupportedContent">
 						<ul className="navbar-nav mr-auto">
 							<li className="nav-item active">
-								<a className="nav-link" href="/">
+								<Link className="nav-link" to="/">
 									Home <span className="sr-only">(current)</span>
-								</a>
+								</Link>
 							</li>
 
 							<li className="nav-item">
-								<a className="nav-link" href="/presents">
+								<Link className="nav-link" to="/presents">
 									Presents
-								</a>
+								</Link>
 							</li>
 
 							<li className="nav-item dropdown">
-								<a
+								<Link
 									className="nav-link dropdown-toggle"
-									href="/archives"
+									to="/archives"
 									id="navbarDropdown"
 									role="button"
 									data-toggle="dropdown"
@@ -54,53 +54,53 @@ function Header() {
 									aria-expanded="false"
 								>
 									Archives
-								</a>
+								</Link>
 								<div className="dropdown-menu" aria-labelledby="navbarDropdown">
-									<a className="dropdown-item" href="/archives/English">
+									<Link className="dropdown-item" to="/archives/English">
 										English
-									</a>
-									<a className="dropdown-item" href="/archives/Linear Algebra">
+									</Link>
+									<Link className="dropdown-item" to="/archives/Linear Algebra">
 										Linear Algebra
-									</a>
-									<a
+									</Link>
+									<Link
 										className="dropdown-item"
-										href="/archives/Discrete Mathematics"
+										to="/archives/Discrete Mathematics"
 									>
 										Discrete Mathematics
-									</a>
-									<a
+									</Link>
+									<Link
 										className="dropdown-item"
-										href="/archives/Digital Systems Design"
+										to="/archives/Digital Systems Design"
 									>
 										Digital Systems Design
-									</a>
-									<a
+									</Link>
+									<Link
 										className="dropdown-item"
-										href="/archives/Statistics and Probability"
+										to="/archives/Statistics and Probability"
 									>
 										Statistics and Probability
-									</a>
-									<a
+									</Link>
+									<Link
 										className="dropdown-item"
-										href="/archives/Structure Programming Language"
+										to="/archives/Structure Programming Language"
 									>
 										Structure Programming Language
-									</a>
-									<a
+									</Link>
+									<Link
 										className="dropdown-item"
-										href="/archives/Story of the Emergance of Indipendent Bangladesh"
+										to="/archives/Story of the Emergance of Indipendent Bangladesh"
 									>
 										History of Indipendent Bangladesh
-									</a>
-									<a className="dropdown-item" href="/archives/Others">
+									</Link>
+									<Link className="dropdown-item" to="/archives/Others">
 										Others
-									</a>
+									</Link>
 								</div>
 							</li>
 							<li className="nav-item auth-nav">
-								<a className="nav-link" href="/admin">
+								<Link className="nav-link" to="/admin">
 									Admin
-								</a>
+								</Link>
 							</li>
 						</ul>
 
@@ -108,19 +108,19 @@ function Header() {
 							<ul className="navbar-nav ml-auto">
 								<br />
 								<li className="nav-item auth-nav">
-									<a className="nav-link" href="/dashboard">
+									<Link className="nav-link" to="/dashboard">
 										Dashboard
-									</a>
+									</Link>
 								</li>
 								<li className="nav-item  auth-nav">
-									<a className="nav-link" href="/manage-archives">
+									<Link className="nav-link" to="/manage-archives">
 										Archives
-									</a>
+									</Link>
 								</li>
 								<li className="nav-item auth-nav">
-									<a className="nav-link" href="/add-archive">
+									<Link className="nav-link" to="/add-archive">
 										Add Archive
-									</a>
+									</Link>
 								</li>
 
 								<li className="nav-item logout-button">

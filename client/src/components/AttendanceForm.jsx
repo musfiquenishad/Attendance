@@ -82,9 +82,9 @@ function AttendanceForm() {
 						</h1>
 
 						<p className="mb-4">
-							Check Today's <Link to="/students">Present</Link>.
+							Check Today's <Link to="/presents">Presents</Link>.
 							<br />
-							Check previous <Link to="/archivelist">Aattendance</Link>.
+							Check previous <Link to="/archives">Aattendance</Link>.
 						</p>
 						<br />
 						{showAlert && (
