@@ -13,7 +13,7 @@ function Archives() {
 	useEffect(() => {
 		let isMounted = true;
 		axios
-			.get("/archives")
+			.get("/allarchives")
 			.then((res) => {
 				if (isMounted) {
 					setData(res.data);

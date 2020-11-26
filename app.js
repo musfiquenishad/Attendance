@@ -156,7 +156,7 @@ app.get("/student/:id", (req, res) => {
 });
 
 // get all the Archive
-app.get("/archives", (req, res) => {
+app.get("/allarchives", (req, res) => {
 	Archives.find({})
 		.sort({ date: -1 })
 		.then((result) => {
@@ -179,7 +179,7 @@ app.get("/archive/:id", (req, res) => {
 });
 
 // Subject wise show archive
-app.get("/archives/:subject", (req, res) => {
+app.get("/allarchives/:subject", (req, res) => {
 	Archives.find({ subject: req.params.subject }, (error, archives) => {
 		if (error) {
 			res.status(5000).send(error.message);

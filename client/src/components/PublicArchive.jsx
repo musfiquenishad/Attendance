@@ -13,7 +13,7 @@ function AttendanceArchive() {
 		let isMounted = true;
 		setLoading(true);
 		axios
-			.get("/archives")
+			.get("/allarchives")
 			.then((res) => {
 				if (isMounted) {
 					setData(res.data);
