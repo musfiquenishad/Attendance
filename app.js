@@ -117,8 +117,95 @@ const Formvisibility = mongoose.model("Formvisibility", formSchema);
 
 //...............................ALL Mongoose Schema Ends..................................//
 
-//.................................Authentication Related Route Starts.............................//
+//..............................All Get Route Starts here..................................//
 
+//Authentication Check Route
+app.get("/authenticated", (req, res) => {
+	if (req.isAuthenticated()) {
+		res.send(true);
+	} else {
+		res.send(false);
+	}
+});
+
+// get all perticipants
+app.get("/students", (req, res) => {
+	Students.find({})
+		.sort("classId")
+		.then((result) => {
+			res.json(result);
+		})
+		.catch((error) => {
+			res.json(error.message);
+		});
+});
+
+// get single perticipant
+app.get("/student/:id", (req, res) => {
+	if (req.isAuthenticated()) {
+		Students.find({ _id: req.params.id }, (error, student) => {
+			if (error) {
+				res.status(404);
+			} else {
+				res.json(student);
+			}
+		});
+	} else {
+		res.error("You are not authenticated");
+	}
+});
+
+// get all the Archive
+app.get("/archives", (req, res) => {
+	Archives.find({})
+		.sort({ date: -1 })
+		.then((result) => {
+			res.send(result);
+		})
+		.catch((error) => {
+			res.send(error.message);
+		});
+});
+
+//get individual archive data
+app.get("/archive/:id", (req, res) => {
+	Archives.find({ _id: req.params.id }, (error, archive) => {
+		if (error) {
+			res.status(404);
+		} else {
+			res.json(archive);
+		}
+	});
+});
+
+// Subject wise show archive
+app.get("/archives/:subject", (req, res) => {
+	Archives.find({ subject: req.params.subject }, (error, archives) => {
+		if (error) {
+			res.status(5000).send(error.message);
+		} else {
+			res.send(archives);
+		}
+	});
+});
+
+// show form route
+app.get("/showform", (req, res) => {
+	Formvisibility.findOne(
+		{ _id: "5fb124a4eccd961718d0b8bc" },
+		(error, formvisibilityvalue) => {
+			if (error) {
+				res.status(500);
+			} else {
+				res.send(formvisibilityvalue);
+			}
+		}
+	);
+});
+
+//..............................All Get Route Ends here..................................//
+
+//..............................All Post Route Starts here..............................//
 //Register Route
 app.post("/register", (req, res) => {
 	if (req.isAuthenticated()) {
@@ -160,24 +247,11 @@ app.post("/login", (req, res) => {
 	});
 });
 
-//Authentication Check Route
-app.get("/authenticated", (req, res) => {
-	if (req.isAuthenticated()) {
-		res.send(true);
-	} else {
-		res.send(false);
-	}
-});
-
 //Logout Route
 app.post("/logout", (req, res) => {
 	req.logout();
 	res.send("User logged out successfully");
 });
-
-//.................................Authentication Related Route Ends.............................//
-
-//................................ Attend in class Routes starts......................................//
 
 //attend in class route
 app.post("/attend", (req, res) => {
@@ -227,6 +301,46 @@ app.post("/addstudent", (req, res) => {
 	}
 });
 
+//Add New Archive
+app.post("/post", (req, res) => {
+	if (req.isAuthenticated()) {
+		const archives = new Archives({
+			date: req.body.date,
+			subject: req.body.subject,
+			data: req.body.data,
+		});
+
+		archives.save((error, archive) => {
+			if (error) {
+				res.status(500);
+			} else {
+				res.send("Attendance data posted successfully");
+			}
+		});
+	} else {
+		res.send("You are not authenticated to post in archive");
+	}
+});
+
+// Form visibility for development perpose
+// app.post("/formvisibility", (req, res) => {
+// 	const formvisibility = req.body.formvisibility;
+// 	const visibility = new Formvisibility({
+// 		formvisibility,
+// 	});
+// 	visibility.save((error, success) => {
+// 		if (error) {
+// 			res.status(500);
+// 		} else {
+// 			res.send("Form visibility value changed");
+// 		}
+// 	});
+// });
+
+//..............................All Post Route Ends here..............................//
+
+//...............................All Edit Route Starts here..............................//
+
 // edit students attendance information route
 app.put("/edit", (req, res) => {
 	const id = req.body.id;
@@ -257,36 +371,24 @@ app.put("/edit", (req, res) => {
 	}
 });
 
-//................................ Attend in class Routes Ends......................................//
-
-//.............................Get All Students Who are Present in class starts..........................//
-
-// get all perticipants
-app.get("/students", (req, res) => {
-	Students.find({})
-		.sort("classId")
-		.then((result) => {
-			res.json(result);
-		})
-		.catch((error) => {
-			res.json(error.message);
-		});
-});
-
-// get single perticipant
-app.get("/student/:id", (req, res) => {
-	if (req.isAuthenticated()) {
-		Students.find({ _id: req.params.id }, (error, student) => {
+//change form visibility route
+app.put("/formvisibility", (req, res) => {
+	Formvisibility.updateOne(
+		{ _id: "5fb124a4eccd961718d0b8bc" },
+		{ formvisibility: req.body.formvisibility },
+		(error, success) => {
 			if (error) {
-				res.status(404);
+				res.status(500);
 			} else {
-				res.json(student);
+				res.send("Form visibility value changed");
 			}
-		});
-	} else {
-		res.error("You are not authenticated");
-	}
+		}
+	);
 });
+
+//...............................All Edit Route Ends here..............................//
+
+//................................All Delete Route starts here...........................//
 
 // Delete all students
 app.delete("/deleteall", (req, res) => {
@@ -301,53 +403,6 @@ app.delete("/deleteall", (req, res) => {
 	} else {
 		res.send("You are not authenticated to delete");
 	}
-});
-//.............................Get All Students Who are Present in class ends..........................//
-
-// ................................... All Archive Routes Starts .....................................//
-
-//Add New Archive
-app.post("/post", (req, res) => {
-	if (req.isAuthenticated()) {
-		const archives = new Archives({
-			date: req.body.date,
-			subject: req.body.subject,
-			data: req.body.data,
-		});
-
-		archives.save((error, archive) => {
-			if (error) {
-				res.status(500);
-			} else {
-				res.send("Attendance data posted successfully");
-			}
-		});
-	} else {
-		res.send("You are not authenticated to post in archive");
-	}
-});
-
-// get all the Archive
-app.get("/archives", (req, res) => {
-	Archives.find({})
-		.sort({ date: -1 })
-		.then((result) => {
-			res.send(result);
-		})
-		.catch((error) => {
-			res.send(error.message);
-		});
-});
-
-//get individual archive data
-app.get("/archive/:id", (req, res) => {
-	Archives.find({ _id: req.params.id }, (error, archive) => {
-		if (error) {
-			res.status(404);
-		} else {
-			res.json(archive);
-		}
-	});
 });
 
 // delete individual Archive
@@ -375,66 +430,7 @@ app.delete("/archive/:id", (req, res) => {
 	}
 });
 
-// Subject wise show archive
-app.get("/archives/:subject", (req, res) => {
-	Archives.find({ subject: req.params.subject }, (error, archives) => {
-		if (error) {
-			res.status(5000).send(error.message);
-		} else {
-			res.send(archives);
-		}
-	});
-});
-
-// ................................... All Archive Routes Ends .....................................//
-
-//...................................Attendance Form visibility related.........................//
-
-// show form route
-app.get("/showform", (req, res) => {
-	Formvisibility.findOne(
-		{ _id: "5fb124a4eccd961718d0b8bc" },
-		(error, formvisibilityvalue) => {
-			if (error) {
-				res.status(500);
-			} else {
-				res.send(formvisibilityvalue);
-			}
-		}
-	);
-});
-
-//change form visibility route
-app.put("/formvisibility", (req, res) => {
-	Formvisibility.updateOne(
-		{ _id: "5fb124a4eccd961718d0b8bc" },
-		{ formvisibility: req.body.formvisibility },
-		(error, success) => {
-			if (error) {
-				res.status(500);
-			} else {
-				res.send("Form visibility value changed");
-			}
-		}
-	);
-});
-
-// Form visibility for development perpose
-// app.post("/formvisibility", (req, res) => {
-// 	const formvisibility = req.body.formvisibility;
-// 	const visibility = new Formvisibility({
-// 		formvisibility,
-// 	});
-// 	visibility.save((error, success) => {
-// 		if (error) {
-// 			res.status(500);
-// 		} else {
-// 			res.send("Form visibility value changed");
-// 		}
-// 	});
-// });
-
-//...................................Attendance Form visibility related.........................//
+//................................All Delete Route Ends here...........................//
 
 //..................................Production Setup.......................................//
 
