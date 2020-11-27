@@ -101,7 +101,7 @@ const archiveSchema = new mongoose.Schema({
 		required: true,
 	},
 	data: {
-		type: String,
+		type: Array,
 		required: true,
 	},
 });
@@ -131,6 +131,7 @@ app.get("/authenticated", (req, res) => {
 // get all perticipants
 app.get("/students", (req, res) => {
 	Students.find({})
+		.sort("section")
 		.sort("classId")
 		.then((result) => {
 			res.json(result);

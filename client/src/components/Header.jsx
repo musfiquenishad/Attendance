@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { Authentication } from "./Authentication";
 import axios from "axios";
 function Header() {
@@ -12,10 +12,10 @@ function Header() {
 				id="navbar"
 			>
 				<div className="container">
-					<Link className="navbar-brand" to="/">
+					<NavLink activeClassName="active-nav" className="navbar-brand" to="/">
 						<span style={{ color: "#0063AD" }}>Atten</span>
 						<span style={{ color: "#21AC4A" }}>dance</span>
-					</Link>
+					</NavLink>
 
 					<button
 						className="navbar-toggler"
@@ -31,20 +31,19 @@ function Header() {
 
 					<div className="collapse navbar-collapse" id="navbarSupportedContent">
 						<ul className="navbar-nav mr-auto">
-							<li className="nav-item active">
-								<Link className="nav-link" to="/">
-									Home <span className="sr-only">(current)</span>
-								</Link>
-							</li>
-
 							<li className="nav-item">
-								<Link className="nav-link" to="/presents">
+								<NavLink
+									activeClassName="active-nav"
+									className="nav-link"
+									to="/presents"
+								>
 									Presents
-								</Link>
+								</NavLink>
 							</li>
 
 							<li className="nav-item dropdown">
-								<Link
+								<NavLink
+									activeClassName="active-nav"
 									className="nav-link dropdown-toggle"
 									to="/archives"
 									id="navbarDropdown"
@@ -54,53 +53,74 @@ function Header() {
 									aria-expanded="false"
 								>
 									Archives
-								</Link>
+								</NavLink>
 								<div className="dropdown-menu" aria-labelledby="navbarDropdown">
-									<Link className="dropdown-item" to="/archives/English">
+									<NavLink
+										activeClassName="active-nav"
+										className="dropdown-item"
+										to="/archives/English"
+									>
 										English
-									</Link>
-									<Link className="dropdown-item" to="/archives/Linear Algebra">
+									</NavLink>
+									<NavLink
+										activeClassName="active-nav"
+										className="dropdown-item"
+										to="/archives/Linear Algebra"
+									>
 										Linear Algebra
-									</Link>
-									<Link
+									</NavLink>
+									<NavLink
+										activeClassName="active-nav"
 										className="dropdown-item"
 										to="/archives/Discrete Mathematics"
 									>
 										Discrete Mathematics
-									</Link>
-									<Link
+									</NavLink>
+									<NavLink
+										activeClassName="active-nav"
 										className="dropdown-item"
 										to="/archives/Digital Systems Design"
 									>
 										Digital Systems Design
-									</Link>
-									<Link
+									</NavLink>
+									<NavLink
+										activeClassName="active-nav"
 										className="dropdown-item"
 										to="/archives/Statistics and Probability"
 									>
 										Statistics and Probability
-									</Link>
-									<Link
+									</NavLink>
+									<NavLink
+										activeClassName="active-nav"
 										className="dropdown-item"
 										to="/archives/Structure Programming Language"
 									>
 										Structure Programming Language
-									</Link>
-									<Link
+									</NavLink>
+									<NavLink
+										activeClassName="active-nav"
 										className="dropdown-item"
 										to="/archives/Story of the Emergance of Indipendent Bangladesh"
 									>
 										History of Indipendent Bangladesh
-									</Link>
-									<Link className="dropdown-item" to="/archives/Others">
+									</NavLink>
+									<NavLink
+										activeClassName="active-nav"
+										className="dropdown-item"
+										to="/archives/Others"
+									>
 										Others
-									</Link>
+									</NavLink>
 								</div>
 							</li>
 							<li className="nav-item auth-nav">
-								<Link className="nav-link" to="/admin">
+								<NavLink
+									activeClassName="active-nav"
+									className="nav-link"
+									to="/admin"
+								>
 									Admin
-								</Link>
+								</NavLink>
 							</li>
 						</ul>
 
@@ -108,19 +128,31 @@ function Header() {
 							<ul className="navbar-nav ml-auto">
 								<br />
 								<li className="nav-item auth-nav">
-									<Link className="nav-link" to="/dashboard">
+									<NavLink
+										activeClassName="active-nav"
+										className="nav-link"
+										to="/dashboard"
+									>
 										Dashboard
-									</Link>
+									</NavLink>
 								</li>
 								<li className="nav-item  auth-nav">
-									<Link className="nav-link" to="/manage-archives">
+									<NavLink
+										activeClassName="active-nav"
+										className="nav-link"
+										to="/manage-archives"
+									>
 										Archives
-									</Link>
+									</NavLink>
 								</li>
 								<li className="nav-item auth-nav">
-									<Link className="nav-link" to="/add-archive">
+									<NavLink
+										activeClassName="active-nav"
+										className="nav-link"
+										to="/add-archive"
+									>
 										Add Archive
-									</Link>
+									</NavLink>
 								</li>
 
 								<li className="nav-item logout-button">

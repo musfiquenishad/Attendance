@@ -38,7 +38,7 @@ function SubjectWiseArchive() {
 					{!data.length ? (
 						<h2>There is no information in the archive</h2>
 					) : (
-						<div className="table-responsive ">
+						<div className="table-responsive border-bottom">
 							<table className="table table-striped table-sm ">
 								<thead>
 									<tr>

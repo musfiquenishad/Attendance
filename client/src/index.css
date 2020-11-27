@@ -127,3 +127,7 @@ code {
 .loading-screen {
 	margin-top: 200px;
 }
+
+.active-nav {
+	color: #21ac4a !important;
+}

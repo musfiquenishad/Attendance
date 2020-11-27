@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import axios from "axios";
 import Header from "./Header";
 import ReactHtmlParser from "react-html-parser";
@@ -38,7 +38,11 @@ function Archives() {
 				<div className="sidebar-sticky pt-3">
 					<ul className="nav flex-column">
 						<li className="nav-item">
-							<Link className="nav-link" to="/dashboard">
+							<NavLink
+								activeClassName="active-nav"
+								className="nav-link"
+								to="/dashboard"
+							>
 								<svg
 									width="1em"
 									height="1em"
@@ -57,10 +61,14 @@ function Archives() {
 									/>
 								</svg>{" "}
 								Dashboard
-							</Link>
+							</NavLink>
 						</li>
 						<li className="nav-item">
-							<Link className="nav-link" to="/manage-archives">
+							<NavLink
+								activeClassName="active-nav"
+								className="nav-link"
+								to="/manage-archives"
+							>
 								<svg
 									width="1em"
 									height="1em"
@@ -75,10 +83,14 @@ function Archives() {
 									/>
 								</svg>{" "}
 								Archives
-							</Link>
+							</NavLink>
 						</li>
 						<li className="nav-item">
-							<Link className="nav-link" to="/add-archive">
+							<NavLink
+								activeClassName="active-nav"
+								className="nav-link"
+								to="/add-archive"
+							>
 								<svg
 									width="1em"
 									height="1em"
@@ -96,7 +108,7 @@ function Archives() {
 								</svg>
 								{"  "}
 								Add Archive
-							</Link>
+							</NavLink>
 						</li>
 					</ul>
 				</div>
@@ -106,152 +118,155 @@ function Archives() {
 				<div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
 					<h1 className="h2">Archives</h1>
 				</div>
+				{!data.length ? (
+					<LoadingScreen />
+				) : (
+					<div className="table-responsive">
+						<table className="table table-striped table-sm">
+							<thead>
+								<tr>
+									<th>Date</th>
+									<th>Subject</th>
+									<th className="text-center">Attendance Data</th>
+									<th className="text-right">Action</th>
+								</tr>
+							</thead>
+							<tbody>
+								{data.map((archive) => {
+									return (
+										<tr key={archive._id}>
+											<td>{archive.date}</td>
+											<td>{archive.subject}</td>
 
-				<div className="table-responsive">
-					<table className="table table-striped table-sm">
-						<thead>
-							<tr>
-								<th>Date</th>
-								<th>Subject</th>
-								<th className="text-center">Attendance Data</th>
-								<th className="text-right">Action</th>
-							</tr>
-						</thead>
-						<tbody>
-							{data.map((archive) => {
-								return (
-									<tr key={archive._id}>
-										<td>{archive.date}</td>
-										<td>{archive.subject}</td>
-
-										<td className="text-center">
-											<button
-												type="button"
-												className="btn btn-warning btn-sm"
-												data-toggle="modal"
-												data-target="#exampleModalScrollable"
-												onClick={(event) => {
-													setModalLoading(true);
-													axios
-														.get(`/archive/${archive._id}`)
-														.then((res) => {
-															setArchiveData(res.data[0]);
-															setModalLoading(false);
-														})
-														.catch((error) => {
-															console.log(error);
-														});
-												}}
-											>
-												<svg
-													width="1em"
-													height="1em"
-													viewBox="0 0 16 16"
-													className="bi bi-file-earmark-bar-graph"
-													fill="currentColor"
-													xmlns="http://www.w3.org/2000/svg"
+											<td className="text-center">
+												<button
+													type="button"
+													className="btn btn-warning btn-sm"
+													data-toggle="modal"
+													data-target="#exampleModalScrollable"
+													onClick={(event) => {
+														setModalLoading(true);
+														axios
+															.get(`/archive/${archive._id}`)
+															.then((res) => {
+																setArchiveData(res.data[0]);
+																setModalLoading(false);
+															})
+															.catch((error) => {
+																console.log(error);
+															});
+													}}
 												>
-													<path d="M4 0h5.5v1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5h1V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2z" />
-													<path d="M9.5 3V0L14 4.5h-3A1.5 1.5 0 0 1 9.5 3zm-5 11a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-1zm3 0a.5.5 0 0 1-.5-.5v-4a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5h-1zm3 0a.5.5 0 0 1-.5-.5v-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-.5.5h-1z" />
-												</svg>{" "}
-												View
-											</button>
+													<svg
+														width="1em"
+														height="1em"
+														viewBox="0 0 16 16"
+														className="bi bi-file-earmark-bar-graph"
+														fill="currentColor"
+														xmlns="http://www.w3.org/2000/svg"
+													>
+														<path d="M4 0h5.5v1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5h1V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2z" />
+														<path d="M9.5 3V0L14 4.5h-3A1.5 1.5 0 0 1 9.5 3zm-5 11a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-1zm3 0a.5.5 0 0 1-.5-.5v-4a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5h-1zm3 0a.5.5 0 0 1-.5-.5v-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-.5.5h-1z" />
+													</svg>{" "}
+													View
+												</button>
 
-											<div
-												className="modal fade"
-												id="exampleModalScrollable"
-												tabIndex="-1"
-												role="dialog"
-												aria-labelledby="exampleModalScrollableTitle"
-												aria-hidden="true"
-											>
 												<div
-													className="modal-dialog modal-dialog-scrollable"
-													role="document"
+													className="modal fade"
+													id="exampleModalScrollable"
+													tabIndex="-1"
+													role="dialog"
+													aria-labelledby="exampleModalScrollableTitle"
+													aria-hidden="true"
 												>
-													<div className="modal-content">
-														<div className="modal-header">
-															<h5
-																className="modal-title text-left"
-																id="exampleModalScrollableTitle"
-															>
-																{archiveData.subject} <br />
-																{archiveData.date}
-															</h5>
-															<br />
+													<div
+														className="modal-dialog modal-dialog-scrollable"
+														role="document"
+													>
+														<div className="modal-content">
+															<div className="modal-header">
+																<h5
+																	className="modal-title text-left"
+																	id="exampleModalScrollableTitle"
+																>
+																	{archiveData.subject} <br />
+																	{archiveData.date}
+																</h5>
+																<br />
 
-															<button
-																type="button"
-																className="close"
-																data-dismiss="modal"
-																aria-label="Close"
-															>
-																<span aria-hidden="true">&times;</span>
-															</button>
-														</div>
-														<div className="modal-body">
-															{modalLoading ? (
-																<LoadingScreen />
-															) : (
-																ReactHtmlParser(archiveData.data)
-															)}
-														</div>
-														<div className="modal-footer">
-															<button
-																type="button"
-																className="btn btn-warning btn-sm"
-																data-dismiss="modal"
-															>
-																Close
-															</button>
+																<button
+																	type="button"
+																	className="close"
+																	data-dismiss="modal"
+																	aria-label="Close"
+																>
+																	<span aria-hidden="true">&times;</span>
+																</button>
+															</div>
+															<div className="modal-body">
+																{modalLoading ? (
+																	<LoadingScreen />
+																) : (
+																	ReactHtmlParser(archiveData.data)
+																)}
+															</div>
+															<div className="modal-footer">
+																<button
+																	type="button"
+																	className="btn btn-warning btn-sm"
+																	data-dismiss="modal"
+																>
+																	Close
+																</button>
+															</div>
 														</div>
 													</div>
 												</div>
-											</div>
-										</td>
-										<td className="text-right">
-											<button
-												type="button"
-												className="btn btn-sm btn-danger"
-												onClick={(event) => {
-													const confirm = prompt(
-														"Please type Delete in order to delete all attendance"
-													);
-													if (confirm === "Delete") {
-														axios
-															.delete(`/archive/${archive._id}`)
-															.then((res) => {
-																console.log("Archive deleted successfully");
-															})
-															.catch((Error) => {
-																console.log(Error);
-															});
-													}
-												}}
-											>
-												<svg
-													width="1em"
-													height="1em"
-													viewBox="0 0 16 16"
-													className="bi bi-trash"
-													fill="currentColor"
-													xmlns="http://www.w3.org/2000/svg"
+											</td>
+											<td className="text-right">
+												<button
+													type="button"
+													className="btn btn-sm btn-danger"
+													onClick={(event) => {
+														const confirm = prompt(
+															"Please type Delete in order to delete all attendance"
+														);
+														if (confirm === "Delete") {
+															axios
+																.delete(`/archive/${archive._id}`)
+																.then((res) => {
+																	console.log("Archive deleted successfully");
+																})
+																.catch((Error) => {
+																	console.log(Error);
+																});
+														}
+													}}
 												>
-													<path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
-													<path
-														fillRule="evenodd"
-														d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"
-													/>
-												</svg>{" "}
-												Delete
-											</button>
-										</td>
-									</tr>
-								);
-							})}
-						</tbody>
-					</table>
-				</div>
+													<svg
+														width="1em"
+														height="1em"
+														viewBox="0 0 16 16"
+														className="bi bi-trash"
+														fill="currentColor"
+														xmlns="http://www.w3.org/2000/svg"
+													>
+														<path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+														<path
+															fillRule="evenodd"
+															d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"
+														/>
+													</svg>{" "}
+													Delete
+												</button>
+											</td>
+										</tr>
+									);
+								})}
+							</tbody>
+						</table>
+					</div>
+				)}
 			</main>
 		</div>
 	);

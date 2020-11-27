@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Header from "./components/Header";
 import AttendanceForm from "./components/AttendanceForm";
-import AttendanceTable from "./components/AttendanceTable";
+import Presents from "./components/Presents";
 import { Authentication } from "./components/Authentication";
 import Dashboard from "./components/Dashboard";
 import PrivateRoute from "./components/PrivateRoute";
@@ -56,7 +56,7 @@ function App() {
 
 							<Route exact path="/presents">
 								<Header />
-								<AttendanceTable />
+								<Presents />
 							</Route>
 
 							<Route exact path="/admin" component={Admin} />

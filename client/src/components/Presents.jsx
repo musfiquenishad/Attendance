@@ -38,7 +38,7 @@ function AttendanceTable() {
 					{!data.length ? (
 						<h2>No one is present yet</h2>
 					) : (
-						<div className="table-responsive">
+						<div className="table-responsive border-bottom">
 							<table className="table table-striped table-sm">
 								<thead>
 									<tr>

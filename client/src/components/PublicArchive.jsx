@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import ReactHtmlParser from "react-html-parser";
 import LoadingScreen from "./LoadingScreen";
 
 function AttendanceArchive() {
@@ -8,6 +7,7 @@ function AttendanceArchive() {
 	const [archiveData, setArchiveData] = useState([]);
 	const [loading, setLoading] = useState(false);
 	const [modalLoading, setModalLoading] = useState(false);
+	const [singleData, setSingleData] = useState([]);
 
 	useEffect(() => {
 		let isMounted = true;
@@ -37,7 +37,7 @@ function AttendanceArchive() {
 					{!data.length ? (
 						<h2>There is no information in the archive</h2>
 					) : (
-						<div className="table-responsive ">
+						<div className="table-responsive border-bottom">
 							<table className="table table-striped table-sm ">
 								<thead>
 									<tr>
@@ -65,6 +65,7 @@ function AttendanceArchive() {
 																.get(`/archive/${archive._id}`)
 																.then((res) => {
 																	setArchiveData(res.data[0]);
+																	setSingleData(res.data[0].data);
 																	setModalLoading(false);
 																})
 																.catch((error) => {
@@ -120,7 +121,34 @@ function AttendanceArchive() {
 																	{modalLoading ? (
 																		<LoadingScreen marginTop="0px" />
 																	) : (
-																		ReactHtmlParser(archiveData.data)
+																		<div className="table-responsive border-bottom">
+																			<table className="table table-striped table-sm">
+																				<thead>
+																					<tr>
+																						<th>ID</th>
+																						<th>Name</th>
+																						<th>Section</th>
+																						<th className="text-center">
+																							Subject
+																						</th>
+																					</tr>
+																				</thead>
+																				<tbody>
+																					{singleData.map((student) => {
+																						return (
+																							<tr key={student._id}>
+																								<td>{student.classId}</td>
+																								<td>{student.name}</td>
+																								<td>{student.section}</td>
+																								<td className="text-center">
+																									{student.subject}
+																								</td>
+																							</tr>
+																						);
+																					})}
+																				</tbody>
+																			</table>
+																		</div>
 																	)}
 																</div>
 																<div className="modal-footer">

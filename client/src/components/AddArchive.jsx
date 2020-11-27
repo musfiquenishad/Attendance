@@ -1,10 +1,7 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import Header from "./Header";
 import axios from "axios";
-
-import { CKEditor } from "@ckeditor/ckeditor5-react";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
 function Archives() {
 	const [data, setData] = useState("");
@@ -15,6 +12,7 @@ function Archives() {
 	const [showAlert, setShowAlert] = useState(false);
 	const [alertMessage, setAlertMessage] = useState("");
 	const [loading, setLoading] = useState(false);
+	const [presentsLoading, setPresentsLoading] = useState(false);
 
 	function handleSubmit(event) {
 		event.preventDefault();
@@ -22,8 +20,7 @@ function Archives() {
 		if (data === "") {
 			notify({
 				alertVersion: "warning",
-				alertMessage:
-					"Inpute cannot be empty!! Please fill out every feild properly",
+				alertMessage: "There is no data, Please get data first",
 			});
 			setLoading(false);
 		} else {
@@ -71,7 +68,11 @@ function Archives() {
 				<div className="sidebar-sticky pt-3">
 					<ul className="nav flex-column">
 						<li className="nav-item">
-							<Link className="nav-link" to="/dashboard">
+							<NavLink
+								activeClassName="active-nav"
+								className="nav-link"
+								to="/dashboard"
+							>
 								<svg
 									width="1em"
 									height="1em"
@@ -90,10 +91,14 @@ function Archives() {
 									/>
 								</svg>{" "}
 								Dashboard
-							</Link>
+							</NavLink>
 						</li>
 						<li className="nav-item">
-							<Link className="nav-link" to="/manage-archives">
+							<NavLink
+								activeClassName="active-nav"
+								className="nav-link"
+								to="/manage-archives"
+							>
 								<svg
 									width="1em"
 									height="1em"
@@ -108,10 +113,14 @@ function Archives() {
 									/>
 								</svg>{" "}
 								Archives
-							</Link>
+							</NavLink>
 						</li>
 						<li className="nav-item">
-							<Link className="nav-link" to="/add-archive">
+							<NavLink
+								activeClassName="active-nav"
+								className="nav-link"
+								to="/add-archive"
+							>
 								<svg
 									width="1em"
 									height="1em"
@@ -129,7 +138,7 @@ function Archives() {
 								</svg>
 								{"  "}
 								Add Archive
-							</Link>
+							</NavLink>
 						</li>
 					</ul>
 				</div>
@@ -149,7 +158,7 @@ function Archives() {
 					</div>
 				)}
 
-				<form onSubmit={handleSubmit}>
+				<form onSubmit={handleSubmit} className="mb-5">
 					<div className="form-group">
 						<input
 							type="date"
@@ -195,17 +204,108 @@ function Archives() {
 							<option value="Others">Others</option>
 						</select>
 					</div>
-					<div className="form-group">
-						<CKEditor
-							required
-							editor={ClassicEditor}
-							data={data}
-							config={{ toolbar: ["insertTable"] }}
-							onChange={(event, editor) => {
-								const data = editor.getData();
-								setData(data);
+					{!data.length ? (
+						<div className="form-group">
+							{!presentsLoading ? (
+								<button
+									type="button"
+									className="btn btn-warning"
+									onClick={(event) => {
+										setPresentsLoading(true);
+										axios
+											.get("/students")
+											.then((res) => {
+												setData(res.data);
+												setPresentsLoading(false);
+											})
+											.catch((error) => {
+												console.log(error);
+											});
+									}}
+								>
+									<svg
+										width="1em"
+										height="1em"
+										viewBox="0 0 16 16"
+										className="bi bi-download"
+										fill="currentColor"
+										xmlns="http://www.w3.org/2000/svg"
+									>
+										<path
+											fillRule="evenodd"
+											d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"
+										/>
+										<path
+											fillRule="evenodd"
+											d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"
+										/>
+									</svg>{" "}
+									Get Data
+								</button>
+							) : (
+								<button type="button" className="btn btn-warning" disabled>
+									Getting Data...
+								</button>
+							)}
+						</div>
+					) : (
+						<button
+							type="button"
+							className="btn btn-warning"
+							onClick={(event) => {
+								setData("");
 							}}
-						/>
+						>
+							<svg
+								width="1em"
+								height="1em"
+								viewBox="0 0 16 16"
+								className="bi bi-folder-x"
+								fill="currentColor"
+								xmlns="http://www.w3.org/2000/svg"
+							>
+								<path
+									fillRule="evenodd"
+									d="M9.828 4H2.19a1 1 0 0 0-.996 1.09l.637 7a1 1 0 0 0 .995.91H9v1H2.826a2 2 0 0 1-1.991-1.819l-.637-7a1.99 1.99 0 0 1 .342-1.31L.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3h3.982a2 2 0 0 1 1.992 2.181L15.546 8H14.54l.265-2.91A1 1 0 0 0 13.81 4H9.828zm-2.95-1.707L7.587 3H2.19c-.24 0-.47.042-.684.12L1.5 2.98a1 1 0 0 1 1-.98h3.672a1 1 0 0 1 .707.293z"
+								/>
+								<path
+									fillRule="evenodd"
+									d="M11.146 10.146a.5.5 0 0 1 .708 0L13 11.293l1.146-1.147a.5.5 0 0 1 .708.708L13.707 12l1.147 1.146a.5.5 0 0 1-.708.708L13 12.707l-1.146 1.147a.5.5 0 0 1-.708-.708L12.293 12l-1.147-1.146a.5.5 0 0 1 0-.708z"
+								/>
+							</svg>{" "}
+							Remove Data
+						</button>
+					)}
+
+					<div className="form-group">
+						{!data.length ? (
+							<h4>There is no data here to submit, Please Get Data first</h4>
+						) : (
+							<div className="table-responsive border-bottom">
+								<table className="table table-striped table-sm">
+									<thead>
+										<tr>
+											<th>ID</th>
+											<th>Name</th>
+											<th>Section</th>
+											<th className="text-center">Subject</th>
+										</tr>
+									</thead>
+									<tbody>
+										{data.map((student) => {
+											return (
+												<tr key={student._id}>
+													<td>{student.classId}</td>
+													<td>{student.name}</td>
+													<td>{student.section}</td>
+													<td className="text-center">{student.subject}</td>
+												</tr>
+											);
+										})}
+									</tbody>
+								</table>
+							</div>
+						)}
 					</div>
 					{!loading ? (
 						<button type="submit" className="btn btn-warning">
