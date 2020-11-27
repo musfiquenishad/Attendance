@@ -466,7 +466,7 @@ function Dashboard() {
 										<tr key={student._id}>
 											<td>{student.classId}</td>
 											<td>{student.name}</td>
-											<td>{student.section}</td>
+											<td className="text-center">{student.section}</td>
 											<td>{student.subject}</td>
 											<td>{student.email}</td>
 											<td>

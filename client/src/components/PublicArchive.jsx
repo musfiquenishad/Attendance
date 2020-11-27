@@ -127,7 +127,9 @@ function AttendanceArchive() {
 																					<tr>
 																						<th>ID</th>
 																						<th>Name</th>
-																						<th>Section</th>
+																						<th className="text-center">
+																							Section
+																						</th>
 																						<th className="text-center">
 																							Subject
 																						</th>

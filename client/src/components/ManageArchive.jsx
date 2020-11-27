@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import axios from "axios";
 import Header from "./Header";
-import ReactHtmlParser from "react-html-parser";
 import LoadingScreen from "./LoadingScreen";
 function Archives() {
 	const [data, setData] = useState([]);
 	const [archiveData, setArchiveData] = useState([]);
-
+	const [singleData, setSingleData] = useState([]);
 	const [modalLoading, setModalLoading] = useState(false);
 
 	useEffect(() => {
@@ -150,6 +149,7 @@ function Archives() {
 															.get(`/archive/${archive._id}`)
 															.then((res) => {
 																setArchiveData(res.data[0]);
+																setSingleData(res.data[0].data);
 																setModalLoading(false);
 															})
 															.catch((error) => {
@@ -207,7 +207,34 @@ function Archives() {
 																{modalLoading ? (
 																	<LoadingScreen />
 																) : (
-																	ReactHtmlParser(archiveData.data)
+																	<div className="table-responsive border-bottom">
+																		<table className="table table-striped table-sm">
+																			<thead>
+																				<tr>
+																					<th>ID</th>
+																					<th>Name</th>
+																					<th>Section</th>
+																					<th className="text-center">
+																						Subject
+																					</th>
+																				</tr>
+																			</thead>
+																			<tbody>
+																				{singleData.map((student) => {
+																					return (
+																						<tr key={student._id}>
+																							<td>{student.classId}</td>
+																							<td>{student.name}</td>
+																							<td>{student.section}</td>
+																							<td className="text-center">
+																								{student.subject}
+																							</td>
+																						</tr>
+																					);
+																				})}
+																			</tbody>
+																		</table>
+																	</div>
 																)}
 															</div>
 															<div className="modal-footer">
