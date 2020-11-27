@@ -238,9 +238,7 @@ function EditAttendance() {
 									}}
 								>
 									<option value="">Subject...</option>
-									<option value="Structure Programming Language ">
-										Structure Programming Language{" "}
-									</option>
+									<option value="English">English</option>
 									<option value="Linear Algebra">Linear Algebra</option>
 									<option value="Discrete Mathematics">
 										Discrete Mathematics
@@ -251,7 +249,14 @@ function EditAttendance() {
 									<option value="Statistics and Probability">
 										Statistics and Probability
 									</option>
-									<option value="English">English</option>
+
+									<option value="Structure Programming Language">
+										Structure Programming Language
+									</option>
+									<option value="Story of the Emergance of Indipendent Bangladesh">
+										History of Indipendent Bangladesh
+									</option>
+
 									<option value="Others">Others</option>
 								</select>
 							</div>
