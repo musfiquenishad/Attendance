@@ -4,7 +4,7 @@ import Header from "./Header";
 import axios from "axios";
 
 function Archives() {
-	const [data, setData] = useState("");
+	const [data, setData] = useState([]);
 	const [subject, setSubject] = useState("");
 	const [date, setDate] = useState("");
 
@@ -17,7 +17,7 @@ function Archives() {
 	function handleSubmit(event) {
 		event.preventDefault();
 		setLoading(true);
-		if (data === "") {
+		if (!data.length) {
 			notify({
 				alertVersion: "warning",
 				alertMessage: "There is no data, Please get data first",
@@ -31,8 +31,8 @@ function Archives() {
 						alertVersion: "success",
 						alertMessage: "Attendance data saved into archive",
 					});
-					setData("");
-					setData("");
+					setDate("");
+					setData([]);
 					setSubject("");
 					setLoading(false);
 				})
@@ -253,7 +253,7 @@ function Archives() {
 							type="button"
 							className="btn btn-warning"
 							onClick={(event) => {
-								setData("");
+								setData([]);
 							}}
 						>
 							<svg
