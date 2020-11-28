@@ -375,8 +375,10 @@ app.put("/edit", (req, res) => {
 
 //change form visibility route
 app.put("/formvisibility", (req, res) => {
+	console.log(req.body.formvisibility);
 	Formvisibility.updateOne(
 		{ _id: "5fb124a4eccd961718d0b8bc" },
+		{ formvisibility: req.body.formvisibility },
 		(error, formvisibilityvalue) => {
 			if (error) {
 				res.status(500);
