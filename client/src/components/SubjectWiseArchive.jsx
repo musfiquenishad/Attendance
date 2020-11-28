@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import ReactHtmlParser from "react-html-parser";
 import LoadingScreen from "./LoadingScreen";
 
 function SubjectWiseArchive() {
 	const [data, setData] = useState([]);
 	const [archiveData, setArchiveData] = useState([]);
+	const [singleData, setSingleData] = useState([]);
 	const [loading, setLoading] = useState(false);
 	const [modalLoading, setModalLoading] = useState(false);
 	const { subject } = useParams();
@@ -66,6 +66,7 @@ function SubjectWiseArchive() {
 																.get(`/archive/${archive._id}`)
 																.then((res) => {
 																	setArchiveData(res.data[0]);
+																	setSingleData(res.data[0].data);
 																	setModalLoading(false);
 																})
 																.catch((error) => {
@@ -121,7 +122,36 @@ function SubjectWiseArchive() {
 																	{modalLoading ? (
 																		<LoadingScreen marginTop="0px" />
 																	) : (
-																		ReactHtmlParser(archiveData.data)
+																		<div className="table-responsive border-bottom">
+																			<table className="table table-striped table-sm">
+																				<thead>
+																					<tr>
+																						<th>ID</th>
+																						<th>Name</th>
+																						<th className="text-center">
+																							Section
+																						</th>
+																						<th className="text-center">
+																							Subject
+																						</th>
+																					</tr>
+																				</thead>
+																				<tbody>
+																					{singleData.map((student) => {
+																						return (
+																							<tr key={student._id}>
+																								<td>{student.classId}</td>
+																								<td>{student.name}</td>
+																								<td>{student.section}</td>
+																								<td className="text-center">
+																									{student.subject}
+																								</td>
+																							</tr>
+																						);
+																					})}
+																				</tbody>
+																			</table>
+																		</div>
 																	)}
 																</div>
 																<div className="modal-footer">
