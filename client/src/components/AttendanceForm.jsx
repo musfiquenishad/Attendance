@@ -171,7 +171,7 @@ function AttendanceForm() {
 									<option value="Structure Programming Language">
 										Structure Programming Language
 									</option>
-									<option value="Story of the Emergance of Indipendent Bangladesh">
+									<option value="History of Indipendent Bangladesh">
 										History of Indipendent Bangladesh
 									</option>
 
