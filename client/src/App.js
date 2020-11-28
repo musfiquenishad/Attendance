@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { HashRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Header from "./components/Header";
 import AttendanceForm from "./components/AttendanceForm";
-import AttendanceTable from "./components/AttendanceTable";
+import Presents from "./components/Presents";
 import { Authentication } from "./components/Authentication";
 import Dashboard from "./components/Dashboard";
 import PrivateRoute from "./components/PrivateRoute";
 import axios from "axios";
 import Admin from "./components/Admin";
-import Archives from "./components/Archives";
+import ManageArchive from "./components/ManageArchive";
 import AddArchive from "./components/AddArchive";
 import EditAttendance from "./components/EditAttendance";
 import Notfound from "./components/Notfound";
-import AttendanceArchive from "./components/AttendanceArchive";
-import LoadingScreen from "./components/LoadingScreen";
+import PublicArchive from "./components/PublicArchive";
 import { OnOffContext } from "./components/OnOffContext";
+import SubjectWiseArchive from "./components/SubjectWiseArchive";
 
 function App() {
 	const [authenticated, setAuthenticated] = useState(false);
@@ -54,19 +54,30 @@ function App() {
 						<Switch>
 							<Route path="/" exact component={AttendanceForm} />
 
-							<Route exact path="/students" component={AttendanceTable} />
+							<Route exact path="/presents">
+								<Header />
+								<Presents />
+							</Route>
 
 							<Route exact path="/admin" component={Admin} />
-							<Route exact path="/loading" component={LoadingScreen} />
-							<PrivateRoute exact path="/edit/:id" component={EditAttendance} />
-							<Route exact path="/archivelist">
+
+							<Route exact path="/archives">
 								<Header />
-								<AttendanceArchive />
+								<PublicArchive />
+							</Route>
+							<Route exact path="/archives/:subject">
+								<Header />
+								<SubjectWiseArchive />
 							</Route>
 
 							<PrivateRoute path="/dashboard" exact component={Dashboard} />
-							<PrivateRoute path="/archives" exact component={Archives} />
-							<PrivateRoute path="/addarchive" exact component={AddArchive} />
+							<PrivateRoute
+								path="/manage-archives"
+								exact
+								component={ManageArchive}
+							/>
+							<PrivateRoute exact path="/edit/:id" component={EditAttendance} />
+							<PrivateRoute path="/add-archive" exact component={AddArchive} />
 
 							<Route path="*">
 								<Notfound />

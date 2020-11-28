@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import axios from "axios";
-import { Link, useParams } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import Header from "./Header";
 import LoadingScreen from "./LoadingScreen";
 
@@ -85,7 +85,11 @@ function EditAttendance() {
 				<div className="sidebar-sticky pt-3">
 					<ul className="nav flex-column">
 						<li className="nav-item">
-							<Link className="nav-link" to="/dashboard">
+							<NavLink
+								activeClassName="active-nav"
+								className="nav-link"
+								to="/dashboard"
+							>
 								<svg
 									width="1em"
 									height="1em"
@@ -104,10 +108,14 @@ function EditAttendance() {
 									/>
 								</svg>{" "}
 								Dashboard
-							</Link>
+							</NavLink>
 						</li>
 						<li className="nav-item">
-							<Link className="nav-link" to="/archives">
+							<NavLink
+								activeClassName="active-nav"
+								className="nav-link"
+								to="/manage-archives"
+							>
 								<svg
 									width="1em"
 									height="1em"
@@ -122,10 +130,14 @@ function EditAttendance() {
 									/>
 								</svg>{" "}
 								Archives
-							</Link>
+							</NavLink>
 						</li>
 						<li className="nav-item">
-							<Link className="nav-link" to="/addarchive">
+							<NavLink
+								activeClassName="active-nav"
+								className="nav-link"
+								to="/add-archive"
+							>
 								<svg
 									width="1em"
 									height="1em"
@@ -143,7 +155,7 @@ function EditAttendance() {
 								</svg>
 								{"  "}
 								Add Archive
-							</Link>
+							</NavLink>
 						</li>
 					</ul>
 				</div>
@@ -226,9 +238,7 @@ function EditAttendance() {
 									}}
 								>
 									<option value="">Subject...</option>
-									<option value="Structure Programming Language ">
-										Structure Programming Language{" "}
-									</option>
+									<option value="English">English</option>
 									<option value="Linear Algebra">Linear Algebra</option>
 									<option value="Discrete Mathematics">
 										Discrete Mathematics
@@ -239,7 +249,14 @@ function EditAttendance() {
 									<option value="Statistics and Probability">
 										Statistics and Probability
 									</option>
-									<option value="English">English</option>
+
+									<option value="Structure Programming Language">
+										Structure Programming Language
+									</option>
+									<option value="Story of the Emergance of Indipendent Bangladesh">
+										History of Indipendent Bangladesh
+									</option>
+
 									<option value="Others">Others</option>
 								</select>
 							</div>

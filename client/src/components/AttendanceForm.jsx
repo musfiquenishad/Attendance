@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import Header from "./Header";
 import { OnOffContext } from "./OnOffContext";
-import AttendanceArchive from "./AttendanceArchive";
+import AttendanceArchive from "./PublicArchive";
 function AttendanceForm() {
 	const [ip, setIp] = useState("");
 	const [name, setName] = useState("");
@@ -82,9 +82,9 @@ function AttendanceForm() {
 						</h1>
 
 						<p className="mb-4">
-							Check Today's <Link to="/students">Present</Link>.
+							Check Today's <Link to="/presents">Presents</Link>.
 							<br />
-							Check previous <Link to="/archivelist">Aattendance</Link>.
+							Check previous <Link to="/archives">Aattendance</Link>.
 						</p>
 						<br />
 						{showAlert && (
@@ -168,8 +168,8 @@ function AttendanceForm() {
 										Statistics and Probability
 									</option>
 
-									<option value="Structure Programming Language ">
-										Structure Programming Language{" "}
+									<option value="Structure Programming Language">
+										Structure Programming Language
 									</option>
 									<option value="Story of the Emergance of Indipendent Bangladesh">
 										History of Indipendent Bangladesh

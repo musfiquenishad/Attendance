@@ -1,9 +1,10 @@
 import React from "react";
 import { Fragment, useState, useEffect, useContext } from "react";
-import { Link } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import axios from "axios";
 import Header from "./Header";
 import { OnOffContext } from "./OnOffContext";
+import LoadingScreen from "./LoadingScreen";
 
 function Dashboard() {
 	const [name, setName] = useState("");
@@ -20,7 +21,6 @@ function Dashboard() {
 
 	useEffect(() => {
 		let isMounted = true;
-
 		axios
 			.get("/students")
 			.then((res) => {
@@ -86,7 +86,11 @@ function Dashboard() {
 				<div className="sidebar-sticky pt-3">
 					<ul className="nav flex-column">
 						<li className="nav-item">
-							<Link className="nav-link " to="/dashboard">
+							<NavLink
+								activeClassName="active-nav"
+								className="nav-link "
+								to="/dashboard"
+							>
 								<svg
 									width="1em"
 									height="1em"
@@ -105,10 +109,14 @@ function Dashboard() {
 									/>
 								</svg>{" "}
 								Dashboard
-							</Link>
+							</NavLink>
 						</li>
 						<li className="nav-item">
-							<Link className="nav-link" to="/archives">
+							<NavLink
+								activeClassName="active-nav"
+								className="nav-link"
+								to="/manage-archives"
+							>
 								<svg
 									width="1em"
 									height="1em"
@@ -123,10 +131,14 @@ function Dashboard() {
 									/>
 								</svg>{" "}
 								Archives
-							</Link>
+							</NavLink>
 						</li>
 						<li className="nav-item">
-							<Link className="nav-link" to="/addarchive">
+							<NavLink
+								activeClassName="active-nav"
+								className="nav-link"
+								to="/add-archive"
+							>
 								<svg
 									width="1em"
 									height="1em"
@@ -144,7 +156,7 @@ function Dashboard() {
 								</svg>
 								{"  "}
 								Add Archive
-							</Link>
+							</NavLink>
 						</li>
 					</ul>
 				</div>
@@ -433,54 +445,58 @@ function Dashboard() {
 						</div>
 					</div>
 				</div>
-				<div className="table-responsive">
-					<table className="table table-striped table-sm">
-						<thead>
-							<tr>
-								<th>Class Id</th>
-								<th>Name</th>
-								<th>Section</th>
-								<th>Subject</th>
-								<th>DIIT Email</th>
-								<th>Action</th>
-							</tr>
-						</thead>
-						<tbody>
-							{data.map((student) => {
-								return (
-									<tr key={student._id}>
-										<td>{student.classId}</td>
-										<td>{student.name}</td>
-										<td>{student.section}</td>
-										<td>{student.subject}</td>
-										<td>{student.email}</td>
-										<td>
-											<Link
-												to={`/edit/${student._id}`}
-												className="btn btn-warning btn-sm"
-											>
-												<svg
-													width="1em"
-													height="1em"
-													viewBox="0 0 16 16"
-													className="bi bi-pen"
-													fill="currentColor"
-													xmlns="http://www.w3.org/2000/svg"
+				{!data.length ? (
+					<LoadingScreen />
+				) : (
+					<div className="table-responsive">
+						<table className="table table-striped table-sm">
+							<thead>
+								<tr>
+									<th>Class Id</th>
+									<th>Name</th>
+									<th>Section</th>
+									<th>Subject</th>
+									<th>DIIT Email</th>
+									<th>Action</th>
+								</tr>
+							</thead>
+							<tbody>
+								{data.map((student) => {
+									return (
+										<tr key={student._id}>
+											<td>{student.classId}</td>
+											<td>{student.name}</td>
+											<td className="text-center">{student.section}</td>
+											<td>{student.subject}</td>
+											<td>{student.email}</td>
+											<td>
+												<Link
+													to={`/edit/${student._id}`}
+													className="btn btn-warning btn-sm"
 												>
-													<path
-														fillRule="evenodd"
-														d="M13.498.795l.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z"
-													/>
-												</svg>{" "}
-												Edit
-											</Link>
-										</td>
-									</tr>
-								);
-							})}
-						</tbody>
-					</table>
-				</div>
+													<svg
+														width="1em"
+														height="1em"
+														viewBox="0 0 16 16"
+														className="bi bi-pen"
+														fill="currentColor"
+														xmlns="http://www.w3.org/2000/svg"
+													>
+														<path
+															fillRule="evenodd"
+															d="M13.498.795l.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z"
+														/>
+													</svg>{" "}
+													Edit
+												</Link>
+											</td>
+										</tr>
+									);
+								})}
+							</tbody>
+						</table>
+					</div>
+				)}
 			</main>
 		</Fragment>
 	);
