@@ -100,7 +100,7 @@ function Header() {
 									<NavLink
 										activeClassName="active-nav"
 										className="dropdown-item"
-										to="/archives/Story of the Emergance of Indipendent Bangladesh"
+										to="/archives/History of Indipendent Bangladesh"
 									>
 										History of Indipendent Bangladesh
 									</NavLink>
