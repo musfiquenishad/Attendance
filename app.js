@@ -148,7 +148,7 @@ app.get("/students", (req, res) => {
 });
 
 // get presents data
-app.get("/getpresents/:section", (req, res) => {
+app.get("/getstudents/:section", (req, res) => {
 	if (req.params.section === "All") {
 		Students.find({})
 			.sort("section")

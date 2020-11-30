@@ -235,7 +235,7 @@ function Archives() {
 										onClick={(event) => {
 											setPresentsLoading(true);
 											axios
-												.get(`/getpresents/${searchSection}`)
+												.get(`/getstudents/${searchSection}`)
 												.then((res) => {
 													setData(res.data);
 													setPresentsLoading(false);
