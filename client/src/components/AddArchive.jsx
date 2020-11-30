@@ -234,19 +234,27 @@ function Archives() {
 										className="btn btn-warning"
 										onClick={(event) => {
 											setPresentsLoading(true);
-											axios
-												.get(`/getstudents/${searchSection}`)
-												.then((res) => {
-													setData(res.data);
-													setPresentsLoading(false);
-												})
-												.catch((error) => {
-													setPresentsLoading(false);
-													notify({
-														alertVersion: "danger",
-														alertMessage: error.message,
-													});
+											if (searchSection === "") {
+												setPresentsLoading(false);
+												notify({
+													alertVersion: "warning",
+													alertMessage: "Please Select a section first",
 												});
+											} else {
+												axios
+													.get(`/getstudents/${searchSection}`)
+													.then((res) => {
+														setData(res.data);
+														setPresentsLoading(false);
+													})
+													.catch((error) => {
+														setPresentsLoading(false);
+														notify({
+															alertVersion: "danger",
+															alertMessage: error.message,
+														});
+													});
+											}
 										}}
 									>
 										<svg
@@ -277,7 +285,7 @@ function Archives() {
 											setSearchSection(event.target.value);
 										}}
 									>
-										<option value="">Section...</option>
+										<option value="">Which Section?</option>
 										<option value="All">ALL</option>
 										<option value="A">A</option>
 
@@ -323,7 +331,9 @@ function Archives() {
 
 					<div className="form-group">
 						{!data.length ? (
-							<h4>There is no data here to submit</h4>
+							<h4 className="text-center p-4 border">
+								There is no data here to submit
+							</h4>
 						) : (
 							<div className="table-responsive border-bottom">
 								<table className="table table-striped table-sm">
