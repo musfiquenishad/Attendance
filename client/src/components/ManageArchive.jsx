@@ -125,6 +125,7 @@ function Archives() {
 							<thead>
 								<tr>
 									<th>Date</th>
+									<th>Section</th>
 									<th>Subject</th>
 									<th className="text-center">Attendance Data</th>
 									<th className="text-right">Action</th>
@@ -135,6 +136,7 @@ function Archives() {
 									return (
 										<tr key={archive._id}>
 											<td>{archive.date}</td>
+											<td>{archive.section}</td>
 											<td>{archive.subject}</td>
 
 											<td className="text-center">
@@ -256,7 +258,7 @@ function Archives() {
 													className="btn btn-sm btn-danger"
 													onClick={(event) => {
 														const confirm = prompt(
-															"Please type Delete in order to delete all attendance"
+															`Do you want to delete ${archive.subject} on ${archive.date} ? Type Delete to confirm`
 														);
 														if (confirm === "Delete") {
 															axios

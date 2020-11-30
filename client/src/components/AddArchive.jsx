@@ -7,7 +7,8 @@ function Archives() {
 	const [data, setData] = useState([]);
 	const [subject, setSubject] = useState("");
 	const [date, setDate] = useState("");
-
+	const [section, setSection] = useState("");
+	const [searchSection, setSearchSection] = useState("");
 	const [alertVersion, setAlertVersion] = useState("warning");
 	const [showAlert, setShowAlert] = useState(false);
 	const [alertMessage, setAlertMessage] = useState("");
@@ -25,13 +26,14 @@ function Archives() {
 			setLoading(false);
 		} else {
 			axios
-				.post("/post", { date, subject, data })
+				.post("/post", { date, section, subject, data })
 				.then((res) => {
 					notify({
 						alertVersion: "success",
 						alertMessage: "Attendance data saved into archive",
 					});
 					setDate("");
+					setSection("");
 					setData([]);
 					setSubject("");
 					setLoading(false);
@@ -160,19 +162,38 @@ function Archives() {
 
 				<form onSubmit={handleSubmit} className="mb-5">
 					<div className="form-group">
-						<input
-							type="date"
-							className="form-control"
-							id="exampleInputEmail1"
-							aria-describedby="emailHelp"
-							placeholder="Enter Date"
-							required
-							value={date}
-							onChange={(event) => {
-								setDate(event.target.value);
-							}}
-						/>
+						<div className="input-group">
+							<select
+								className="custom-select "
+								id="section"
+								required
+								value={section}
+								onChange={(event) => {
+									setSection(event.target.value);
+								}}
+							>
+								<option value="">Section...</option>
+								<option value="A">A</option>
+								<option value="B">B</option>
+								<option value="C">C</option>
+								<option value="D">D</option>
+								<option value="All">All</option>
+							</select>
+							<input
+								type="date"
+								className="form-control"
+								id="exampleInputEmail1"
+								aria-describedby="emailHelp"
+								placeholder="Enter Date"
+								required
+								value={date}
+								onChange={(event) => {
+									setDate(event.target.value);
+								}}
+							/>
+						</div>
 					</div>
+
 					<div className="form-group">
 						<select
 							className="custom-select"
@@ -207,41 +228,64 @@ function Archives() {
 					{!data.length ? (
 						<div className="form-group">
 							{!presentsLoading ? (
-								<button
-									type="button"
-									className="btn btn-warning"
-									onClick={(event) => {
-										setPresentsLoading(true);
-										axios
-											.get("/students")
-											.then((res) => {
-												setData(res.data);
-												setPresentsLoading(false);
-											})
-											.catch((error) => {
-												console.log(error);
-											});
-									}}
-								>
-									<svg
-										width="1em"
-										height="1em"
-										viewBox="0 0 16 16"
-										className="bi bi-download"
-										fill="currentColor"
-										xmlns="http://www.w3.org/2000/svg"
+								<div className="input-group mb-3">
+									<button
+										type="button"
+										className="btn btn-warning"
+										onClick={(event) => {
+											setPresentsLoading(true);
+											axios
+												.get(`/getpresents/${searchSection}`)
+												.then((res) => {
+													setData(res.data);
+													setPresentsLoading(false);
+												})
+												.catch((error) => {
+													setPresentsLoading(false);
+													notify({
+														alertVersion: "danger",
+														alertMessage: error.message,
+													});
+												});
+										}}
 									>
-										<path
-											fillRule="evenodd"
-											d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"
-										/>
-										<path
-											fillRule="evenodd"
-											d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"
-										/>
-									</svg>{" "}
-									Get Data
-								</button>
+										<svg
+											width="1em"
+											height="1em"
+											viewBox="0 0 16 16"
+											className="bi bi-download"
+											fill="currentColor"
+											xmlns="http://www.w3.org/2000/svg"
+										>
+											<path
+												fillRule="evenodd"
+												d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"
+											/>
+											<path
+												fillRule="evenodd"
+												d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"
+											/>
+										</svg>{" "}
+										Get Data
+									</button>
+
+									<select
+										className="custom-select "
+										id="section"
+										value={searchSection}
+										onChange={(event) => {
+											setSearchSection(event.target.value);
+										}}
+									>
+										<option value="">Section...</option>
+										<option value="All">ALL</option>
+										<option value="A">A</option>
+
+										<option value="B">B</option>
+										<option value="C">C</option>
+										<option value="D">D</option>
+									</select>
+								</div>
 							) : (
 								<button type="button" className="btn btn-warning" disabled>
 									Getting Data...
@@ -279,7 +323,7 @@ function Archives() {
 
 					<div className="form-group">
 						{!data.length ? (
-							<h4>There is no data here to submit, Please Get Data first</h4>
+							<h4>There is no data here to submit</h4>
 						) : (
 							<div className="table-responsive border-bottom">
 								<table className="table table-striped table-sm">

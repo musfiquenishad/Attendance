@@ -16,6 +16,7 @@ function AttendanceForm() {
 	const [showAlert, setShowAlert] = useState(false);
 	const [alertMessage, setAlertMessage] = useState("");
 	const [loading, setLoading] = useState(false);
+	const [alertHeading, setAlertHeading] = useState("");
 	const { showForm } = useContext(OnOffContext);
 
 	useEffect(() => {
@@ -39,6 +40,7 @@ function AttendanceForm() {
 			.then((res) => {
 				notify({
 					alertVersion: "success",
+					alertHeading: "Congratulation",
 					alertMessage: "Your attendance recorded successfully",
 				});
 				setName("");
@@ -51,23 +53,27 @@ function AttendanceForm() {
 			})
 			.catch((error) => {
 				console.log(error);
+
 				setLoading(false);
 
 				notify({
-					alertVersion: "danger",
-					alertMessage: "Device is already registered !!",
+					alertVersion: "warning",
+					alertHeading: "Network Error !!",
+					alertMessage:
+						"It may be that your presence has already been recorded or Connection problem. Please refrash the page and try again or contact with admin!!",
 				});
 			});
 	}
 
 	function notify(props) {
 		setShowAlert(true);
+		setAlertHeading(`${props.alertHeading}`);
 		setAlertVersion(`${props.alertVersion}`);
 		setAlertMessage(`${props.alertMessage}`);
 
 		setTimeout(() => {
 			setShowAlert(false);
-		}, 4000);
+		}, 30000);
 	}
 
 	return (
@@ -84,15 +90,18 @@ function AttendanceForm() {
 						<p className="mb-4">
 							Check Today's <Link to="/presents">Presents</Link>.
 							<br />
-							Check previous <Link to="/archives">Aattendance</Link>.
+							Check previous <Link to="/archives">Attendance</Link>.
 						</p>
 						<br />
+
 						{showAlert && (
 							<div
-								className={`alert alert-${alertVersion} alert-dismissible fade show `}
+								className={`alert alert-${alertVersion} text-left`}
 								role="alert"
 							>
-								{alertMessage}
+								<h4 className="alert-heading">{alertHeading}</h4>
+								<hr />
+								<p>{alertMessage}</p>
 							</div>
 						)}
 

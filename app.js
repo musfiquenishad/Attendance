@@ -6,6 +6,8 @@ const passport = require("passport");
 const passportLocalMongoose = require("passport-local-mongoose");
 const uniqueValidator = require("mongoose-unique-validator");
 const path = require("path");
+const createError = require("http-errors");
+const { error } = require("console");
 //Defining App
 const app = express();
 
@@ -100,6 +102,10 @@ const archiveSchema = new mongoose.Schema({
 		type: String,
 		required: true,
 	},
+	section: {
+		type: String,
+		required: true,
+	},
 	data: {
 		type: Array,
 		required: true,
@@ -141,6 +147,33 @@ app.get("/students", (req, res) => {
 		});
 });
 
+// get presents data
+app.get("/getpresents/:section", (req, res) => {
+	if (req.params.section === "All") {
+		Students.find({})
+			.sort("section")
+			.sort("classId")
+			.then((result) => {
+				res.json(result);
+			})
+			.catch((error) => {
+				res.json(error.message);
+			});
+	} else {
+		Students.find({
+			section: req.params.section,
+		})
+			.sort("section")
+			.sort("classId")
+			.then((result) => {
+				res.json(result);
+			})
+			.catch((error) => {
+				res.json(error.message);
+			});
+	}
+});
+
 // get single perticipant
 app.get("/student/:id", (req, res) => {
 	if (req.isAuthenticated()) {
@@ -164,7 +197,7 @@ app.get("/allarchives", (req, res) => {
 			res.send(result);
 		})
 		.catch((error) => {
-			res.send(error.message);
+			res.status(500);
 		});
 });
 
@@ -181,13 +214,14 @@ app.get("/archive/:id", (req, res) => {
 
 // Subject wise show archive
 app.get("/allarchives/:subject", (req, res) => {
-	Archives.find({ subject: req.params.subject }, (error, archives) => {
-		if (error) {
-			res.status(5000).send(error.message);
-		} else {
-			res.send(archives);
-		}
-	});
+	Archives.find({ subject: req.params.subject })
+		.sort({ date: -1 })
+		.then((result) => {
+			res.send(result);
+		})
+		.catch((error) => {
+			res.status(500);
+		});
 });
 
 // show form route
@@ -256,10 +290,10 @@ app.post("/logout", (req, res) => {
 });
 
 //attend in class route
-app.post("/attend", (req, res) => {
+app.post("/attend", (req, res, next) => {
 	Students.findOne({ ip: req.body.ip }, (error, student) => {
 		if (student) {
-			res.status(409).send("This device is already registered");
+			res.status(409).send("It Looks Like You already Submited");
 		} else {
 			const student = new Students({
 				ip: req.body.ip,
@@ -308,6 +342,7 @@ app.post("/post", (req, res) => {
 	if (req.isAuthenticated()) {
 		const archives = new Archives({
 			date: req.body.date,
+			section: req.body.section,
 			subject: req.body.subject,
 			data: req.body.data,
 		});
@@ -406,6 +441,17 @@ app.delete("/deleteall", (req, res) => {
 	} else {
 		res.send("You are not authenticated to delete");
 	}
+});
+
+//delete individual student
+app.delete("/deletestudent/:id", (req, res) => {
+	Students.deleteOne({ _id: req.params.id }, (error, success) => {
+		if (error) {
+			res.status(500).send("Something went wrong while deleting student");
+		} else {
+			res.send("Successfully deleted archive");
+		}
+	});
 });
 
 // delete individual Archive

@@ -36,13 +36,17 @@ function SubjectWiseArchive() {
 			) : (
 				<div className="container mt-5 text-center margin-bottom ">
 					{!data.length ? (
-						<h2>There is no information in the archive</h2>
+						<div className="mt-5">
+							<h2>Nothing found of that subject</h2>
+							<h5>opps!! It looks like you are lost </h5>
+						</div>
 					) : (
 						<div className="table-responsive border-bottom">
 							<table className="table table-striped table-sm ">
 								<thead>
 									<tr>
 										<th>Date</th>
+										<th>Section</th>
 										<th>Subject</th>
 										<th className="text-center">Attendance Data</th>
 									</tr>
@@ -52,6 +56,7 @@ function SubjectWiseArchive() {
 										return (
 											<tr key={archive._id}>
 												<td>{archive.date}</td>
+												<td>{archive.section}</td>
 												<td>{archive.subject}</td>
 
 												<td className="text-center">

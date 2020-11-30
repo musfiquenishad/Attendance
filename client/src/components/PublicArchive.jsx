@@ -42,6 +42,7 @@ function AttendanceArchive() {
 								<thead>
 									<tr>
 										<th>Date</th>
+										<th>Section</th>
 										<th>Subject</th>
 										<th className="text-center">Attendance Data</th>
 									</tr>
@@ -51,6 +52,7 @@ function AttendanceArchive() {
 										return (
 											<tr key={archive._id}>
 												<td>{archive.date}</td>
+												<td>{archive.section}</td>
 												<td>{archive.subject}</td>
 
 												<td className="text-center">
