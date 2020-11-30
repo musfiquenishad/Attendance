@@ -331,9 +331,7 @@ function Archives() {
 
 					<div className="form-group">
 						{!data.length ? (
-							<h4 className="text-center p-4 border">
-								There is no data here to submit
-							</h4>
+							<h4 className="text-center p-4 border">Nothing to submit</h4>
 						) : (
 							<div className="table-responsive border-bottom">
 								<table className="table table-striped table-sm">

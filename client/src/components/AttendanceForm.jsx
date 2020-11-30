@@ -73,7 +73,7 @@ function AttendanceForm() {
 
 		setTimeout(() => {
 			setShowAlert(false);
-		}, 30000);
+		}, 20000);
 	}
 
 	return (
@@ -82,10 +82,10 @@ function AttendanceForm() {
 			<div className="mt-5 mb-5">
 				{showForm ? (
 					<div className="container text-center mb-5">
-						<h1 className="mb-4">
+						{/* <h1 className="mb-4">
 							<span style={{ color: "#0063AD" }}>Attendance</span>{" "}
 							<span style={{ color: "#21AC4A" }}>Form</span>
-						</h1>
+						</h1> */}
 
 						<p className="mb-4">
 							Check Today's <Link to="/presents">Presents</Link>.
@@ -99,7 +99,7 @@ function AttendanceForm() {
 								className={`alert alert-${alertVersion} text-left`}
 								role="alert"
 							>
-								<h4 className="alert-heading">{alertHeading}</h4>
+								<h5 className="alert-heading">{alertHeading}</h5>
 								<hr />
 								<p>{alertMessage}</p>
 							</div>
