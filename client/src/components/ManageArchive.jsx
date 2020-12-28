@@ -128,8 +128,8 @@ function Archives() {
 									<th>Date</th>
 									<th>Section</th>
 									<th>Subject</th>
-									<th className="text-center">Attendance Data</th>
-									<th className="text-right">Action</th>
+									<th className="text-center">Attendance</th>
+									<th className="text-right">Delete</th>
 								</tr>
 							</thead>
 							<tbody>

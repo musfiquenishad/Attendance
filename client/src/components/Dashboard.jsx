@@ -438,9 +438,9 @@ function Dashboard() {
 									<th>Name</th>
 									<th>Section</th>
 									<th>Subject</th>
-									<th className="text-center">Ip</th>
 									<th>Edit</th>
 									<th>Delete</th>
+									<th className="text-center">IP</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -451,9 +451,7 @@ function Dashboard() {
 											<td>{student.name}</td>
 											<td className="text-center">{student.section}</td>
 											<td>{student.subject}</td>
-											<td className="text-center">
-												{student.ip ? student.ip : ""}
-											</td>
+
 											<td>
 												<Link
 													to={`/edit/${student._id}`}
@@ -509,6 +507,9 @@ function Dashboard() {
 														/>
 													</svg>
 												</button>
+											</td>
+											<td className="text-center">
+												{student.ip ? student.ip : ""}
 											</td>
 										</tr>
 									);
