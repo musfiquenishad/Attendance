@@ -10,7 +10,6 @@ function EditAttendance() {
 	const [classId, setClassId] = useState("");
 	const [section, setSection] = useState("");
 	const [subject, setSubject] = useState("");
-	const [email, setEmail] = useState("");
 	const [alertVersion, setAlertVersion] = useState("warning");
 	const [showAlert, setShowAlert] = useState(false);
 	const [alertMessage, setAlertMessage] = useState("");
@@ -29,7 +28,7 @@ function EditAttendance() {
 					setClassId(res.data[0].classId);
 					setSection(res.data[0].section);
 					setSubject(res.data[0].subject);
-					setEmail(res.data[0].email);
+
 					setShowLoading(false);
 				}
 			})
@@ -46,7 +45,7 @@ function EditAttendance() {
 		event.preventDefault();
 		setLoading(true);
 		axios
-			.put("/edit", { classId, name, section, subject, email, id })
+			.put("/edit", { classId, name, section, subject, id })
 			.then((res) => {
 				notify({
 					alertVersion: "success",
@@ -195,37 +194,33 @@ function EditAttendance() {
 								/>
 							</div>
 							<div className="form-group">
-								<div className="row">
-									<div className="col">
-										<select
-											className="custom-select"
-											id="section"
-											required
-											value={section}
-											onChange={(event) => {
-												setSection(event.target.value);
-											}}
-										>
-											<option value="">Section...</option>
-											<option value="A">A</option>
-											<option value="B">B</option>
-											<option value="C">C</option>
-											<option value="D">D</option>
-										</select>
-									</div>
-									<div className="col">
-										<input
-											required
-											type="number"
-											className="form-control"
-											placeholder="Class Id"
-											value={classId}
-											onChange={(event) => {
-												setClassId(event.target.value);
-											}}
-										/>
-									</div>
-								</div>
+								<select
+									className="custom-select"
+									id="section"
+									required
+									value={section}
+									onChange={(event) => {
+										setSection(event.target.value);
+									}}
+								>
+									<option value="">Section...</option>
+									<option value="A">A</option>
+									<option value="B">B</option>
+									<option value="C">C</option>
+									<option value="D">D</option>
+								</select>
+							</div>
+							<div className="form-group">
+								<input
+									required
+									type="number"
+									className="form-control"
+									placeholder="Class Id"
+									value={classId}
+									onChange={(event) => {
+										setClassId(event.target.value);
+									}}
+								/>
 							</div>
 							<div className="form-group">
 								<select
@@ -261,18 +256,6 @@ function EditAttendance() {
 								</select>
 							</div>
 
-							<div className="form-group">
-								<input
-									required
-									type="email"
-									className="form-control"
-									placeholder="DIIT Email"
-									value={email}
-									onChange={(event) => {
-										setEmail(event.target.value);
-									}}
-								/>
-							</div>
 							<div className="form-group text-left">
 								{!loading ? (
 									<button type="submit" className="btn btn-warning">
