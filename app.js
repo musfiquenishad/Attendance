@@ -82,11 +82,6 @@ const studentSchema = new mongoose.Schema({
 		type: String,
 		required: true,
 	},
-	email: {
-		required: true,
-		type: String,
-		unique: true,
-	},
 });
 
 studentSchema.plugin(uniqueValidator);
@@ -301,7 +296,6 @@ app.post("/attend", (req, res, next) => {
 				name: req.body.name,
 				section: req.body.section,
 				subject: req.body.subject,
-				email: req.body.email,
 			});
 
 			student.save((error, success) => {
@@ -317,24 +311,21 @@ app.post("/attend", (req, res, next) => {
 
 // add a student from dashboard route
 app.post("/addstudent", (req, res) => {
-	if (req.isAuthenticated()) {
-		const student = new Students({
-			ip: "",
-			classId: req.body.classId,
-			name: req.body.name,
-			section: req.body.section,
-			subject: req.body.subject,
-			email: req.body.email,
-		});
+	const student = new Students({
+		ip: "",
+		classId: req.body.classId,
+		name: req.body.name,
+		section: req.body.section,
+		subject: req.body.subject,
+	});
 
-		student.save((error, success) => {
-			if (error) {
-				res.status(500).send("Internel server error please try again letar");
-			} else {
-				res.send("Attendance recorded successfully");
-			}
-		});
-	}
+	student.save((error, success) => {
+		if (error) {
+			res.status(500).send("Internel server error please try again letar");
+		} else {
+			res.send(success);
+		}
+	});
 });
 
 //Add New Archive
@@ -385,7 +376,7 @@ app.put("/edit", (req, res) => {
 	const name = req.body.name;
 	const section = req.body.section;
 	const subject = req.body.subject;
-	const email = req.body.email;
+
 	if (req.isAuthenticated()) {
 		Students.updateOne(
 			{ _id: id },
@@ -394,7 +385,6 @@ app.put("/edit", (req, res) => {
 				name,
 				section,
 				subject,
-				email,
 			}
 		)
 			.then((req, res) => {

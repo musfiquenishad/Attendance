@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import axios from "axios";
 import Header from "./Header";
 import LoadingScreen from "./LoadingScreen";
+import moment from "moment";
 function Archives() {
 	const [data, setData] = useState([]);
 	const [archiveData, setArchiveData] = useState([]);
@@ -135,7 +136,7 @@ function Archives() {
 								{data.map((archive) => {
 									return (
 										<tr key={archive._id}>
-											<td>{archive.date}</td>
+											<td>{moment(archive.date).format("Do MMM YY")}</td>
 											<td>{archive.section}</td>
 											<td>{archive.subject}</td>
 
@@ -258,7 +259,11 @@ function Archives() {
 													className="btn btn-sm btn-danger"
 													onClick={(event) => {
 														const confirm = prompt(
-															`Do you want to delete ${archive.subject} on ${archive.date} ? Type Delete to confirm`
+															`Do you want to delete ${
+																archive.subject
+															} on ${moment(archive.date).format(
+																"Do MMM YY"
+															)} ? Type Delete to confirm`
 														);
 														if (confirm === "Delete") {
 															axios

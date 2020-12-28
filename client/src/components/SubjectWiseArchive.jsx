@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import LoadingScreen from "./LoadingScreen";
+import moment from "moment";
 
 function SubjectWiseArchive() {
 	const [data, setData] = useState([]);
@@ -55,7 +56,7 @@ function SubjectWiseArchive() {
 									{data.map((archive) => {
 										return (
 											<tr key={archive._id}>
-												<td>{archive.date}</td>
+												<td>{moment(archive.date).format("Do MMM YY")}</td>
 												<td>{archive.section}</td>
 												<td>{archive.subject}</td>
 

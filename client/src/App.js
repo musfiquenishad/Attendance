@@ -7,7 +7,6 @@ import { Authentication } from "./components/Authentication";
 import Dashboard from "./components/Dashboard";
 import PrivateRoute from "./components/PrivateRoute";
 import axios from "axios";
-import Admin from "./components/Admin";
 import ManageArchive from "./components/ManageArchive";
 import AddArchive from "./components/AddArchive";
 import EditAttendance from "./components/EditAttendance";
@@ -15,6 +14,7 @@ import Notfound from "./components/Notfound";
 import PublicArchive from "./components/PublicArchive";
 import { OnOffContext } from "./components/OnOffContext";
 import SubjectWiseArchive from "./components/SubjectWiseArchive";
+import Login from "./components/Login";
 
 function App() {
 	const [authenticated, setAuthenticated] = useState(false);
@@ -59,7 +59,7 @@ function App() {
 								<Presents />
 							</Route>
 
-							<Route exact path="/admin" component={Admin} />
+							<Route exact path="/admin" component={Login} />
 
 							<Route exact path="/archives">
 								<Header />
