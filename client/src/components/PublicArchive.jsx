@@ -45,7 +45,7 @@ function AttendanceArchive() {
 										<th>Date</th>
 										<th>Section</th>
 										<th>Subject</th>
-										<th className="text-center">Attendance Data</th>
+										<th className="text-center">Attendance</th>
 									</tr>
 								</thead>
 								<tbody>
