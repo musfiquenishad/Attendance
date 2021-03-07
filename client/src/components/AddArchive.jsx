@@ -205,7 +205,10 @@ function Archives() {
 							}}
 						>
 							<option value="">Subject...</option>
+							<option value="EEC">EEC</option>
+							<option value="Physics">Physics</option>
 							<option value="English">English</option>
+							<option value="Calculus">Calculus</option>
 							<option value="Linear Algebra">Linear Algebra</option>
 							<option value="Discrete Mathematics">Discrete Mathematics</option>
 							<option value="Digital Systems Design">
