@@ -58,9 +58,30 @@ function Header() {
 									<NavLink
 										activeClassName="active-nav"
 										className="dropdown-item"
+										to="/archives/EEC"
+									>
+										EEC
+									</NavLink>
+									<NavLink
+										activeClassName="active-nav"
+										className="dropdown-item"
+										to="/archives/Physics"
+									>
+										Physics
+									</NavLink>
+									<NavLink
+										activeClassName="active-nav"
+										className="dropdown-item"
 										to="/archives/English"
 									>
 										English
+									</NavLink>
+									<NavLink
+										activeClassName="active-nav"
+										className="dropdown-item"
+										to="/archives/Calculus"
+									>
+										Calculus
 									</NavLink>
 									<NavLink
 										activeClassName="active-nav"
