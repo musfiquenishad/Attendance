@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import queryString from "query-string";
 import axios from "axios";
 import Header from "./Header";
 import LoadingScreen from "./LoadingScreen";
@@ -9,24 +11,42 @@ function Archives() {
 	const [archiveData, setArchiveData] = useState([]);
 	const [singleData, setSingleData] = useState([]);
 	const [modalLoading, setModalLoading] = useState(false);
-
+	const { page, size } = queryString.parse(useLocation().search);
 	useEffect(() => {
 		let isMounted = true;
-		axios
-			.get("/allarchives")
-			.then((res) => {
-				if (isMounted) {
-					setData(res.data);
-				}
-			})
-			.catch((error) => {
-				console.log(error);
-			});
 
-		return () => {
-			isMounted = false;
-		};
-	}, [data]);
+		if (page && size) {
+			axios
+				.get(`/allarchives?page=${page}&size=${size}`)
+				.then((res) => {
+					if (isMounted) {
+						setData(res.data);
+					}
+				})
+				.catch((error) => {
+					console.log(error);
+				});
+
+			return () => {
+				isMounted = false;
+			};
+		} else {
+			axios
+				.get("/allarchives")
+				.then((res) => {
+					if (isMounted) {
+						setData(res.data);
+					}
+				})
+				.catch((error) => {
+					console.log(error);
+				});
+
+			return () => {
+				isMounted = false;
+			};
+		}
+	}, [data, page, size]);
 
 	return (
 		<div>
@@ -299,6 +319,10 @@ function Archives() {
 								})}
 							</tbody>
 						</table>
+						<p className="text-muted mt-5 text-center">
+							If you want to see the previous record then please look subject
+							wise Archives
+						</p>
 					</div>
 				)}
 			</main>
