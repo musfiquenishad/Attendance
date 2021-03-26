@@ -59,7 +59,7 @@ function AttendanceForm() {
 					alertVersion: "warning",
 					alertHeading: "Network Error !!",
 					alertMessage:
-						"It may be that your presence has already been recorded or Connection problem. Please refrash the page and try again or contact with admin!!",
+						"It may be that your presence has already been recorded or Connection problem. Please refresh the page and try again or contact with admin!!",
 				});
 			});
 	}
