@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
+import queryString from "query-string";
 import axios from "axios";
 import LoadingScreen from "./LoadingScreen";
 import moment from "moment";
@@ -10,25 +12,46 @@ function AttendanceArchive() {
 	const [modalLoading, setModalLoading] = useState(false);
 	const [singleData, setSingleData] = useState([]);
 
+	const { page, size } = queryString.parse(useLocation().search);
+
 	useEffect(() => {
 		let isMounted = true;
 		setLoading(true);
-		axios
-			.get("/allarchives")
-			.then((res) => {
-				if (isMounted) {
-					setData(res.data);
-					setLoading(false);
-				}
-			})
-			.catch((error) => {
-				console.log(error);
-			});
 
-		return () => {
-			isMounted = false;
-		};
-	}, []);
+		if (page && size) {
+			axios
+				.get(`/allarchives?page=${page}&size=${size}`)
+				.then((res) => {
+					if (isMounted) {
+						setData(res.data);
+						setLoading(false);
+					}
+				})
+				.catch((error) => {
+					console.log(error);
+				});
+
+			return () => {
+				isMounted = false;
+			};
+		} else {
+			axios
+				.get("/allarchives")
+				.then((res) => {
+					if (isMounted) {
+						setData(res.data);
+						setLoading(false);
+					}
+				})
+				.catch((error) => {
+					console.log(error);
+				});
+
+			return () => {
+				isMounted = false;
+			};
+		}
+	}, [page, size]);
 	return (
 		<div>
 			{loading ? (

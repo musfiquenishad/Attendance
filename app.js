@@ -186,8 +186,19 @@ app.get("/student/:id", (req, res) => {
 
 // get all the Archive
 app.get("/allarchives", (req, res) => {
+	let { page, size } = req.query;
+	if (!page) {
+		page = 1;
+	}
+	if (!size) {
+		size = 20;
+	}
+	const limit = parseInt(size);
+	const skip = (page - 1) * size;
 	Archives.find({})
 		.sort({ date: -1 })
+		.limit(limit)
+		.skip(skip)
 		.then((result) => {
 			res.send(result);
 		})
