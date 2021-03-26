@@ -199,6 +199,10 @@ function AttendanceArchive() {
 							</table>
 						</div>
 					)}
+					<p className="text-muted mt-4">
+						If you want to see the previous record then please look subject wise
+						Archives
+					</p>
 				</div>
 			)}
 		</div>
